@@ -25,6 +25,7 @@ function App() {
       <h1>This is for company events</h1>
       <form>
         <TextInput label="" placeholder=""/>
+
       </form>
     </div>
   );
