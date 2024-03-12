@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import TextInput from "./component/TextInputField";
+import DateInputFields from "./component/DateInputField";
+import NumberInputFields from "./component/NumberInputField";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h1>This is for private events</h1>
+      <form>
+        <TextInput
+          label="Fulde navn på kontaktperson"
+          placeholder="Eksempel. Dennis-Zixiang Zhou"
+        />
+        <TextInput label="Email" placeholder="Enter your email" />
+        <DateInputFields />
+        <NumberInputFields label="Age" max={2}/>
+        <NumberInputFields label="Telefonnummer på kontaktperson" max={8}/>
+        <TextInput label="Evt. kommentar til booking" placeholder="" />
+        <div>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+
+      <h1>This is for company events</h1>
+      <form>
+        <TextInput label="" placeholder=""/>
+      </form>
+    </div>
+  );
 }
 
-export default App
+export default App;
