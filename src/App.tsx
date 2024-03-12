@@ -14,8 +14,8 @@ function App() {
         />
         <TextInput label="Email" placeholder="Enter your email" />
         <DateInputFields />
-        <NumberInputFields label="Age" max={2}/>
-        <NumberInputFields label="Telefonnummer på kontaktperson" max={8}/>
+        <NumberInputFields label="Age" max={2} />
+        <NumberInputFields label="Telefonnummer på kontaktperson" max={8} />
         <TextInput label="Evt. kommentar til booking" placeholder="" />
         <div>
           <button type="submit">Submit</button>
@@ -24,8 +24,7 @@ function App() {
 
       <h1>This is for company events</h1>
       <form>
-        <TextInput label="" placeholder=""/>
-
+        <TextInput label="" placeholder="" />
       </form>
     </div>
   );
