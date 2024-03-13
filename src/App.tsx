@@ -23,14 +23,14 @@ function App() {
     defaultValues: {
       firstName: "",
       lastName: "",
-      telefon: "",
+      telefon: undefined,
       email: "",
       activity: "",
       eventDate: "",
-      activityStartTime: "",
+      activityStartTime: undefined,
       comment: "",
       companyName: "",
-      cvr: "",
+      cvr: undefined,
     },
   });
 
@@ -98,7 +98,7 @@ function App() {
             <input
               type="tel"
               maxLength={8}
-              {...register("telefon", { required: true })}
+              {...register("telefon", { required: true, valueAsNumber: true })}
             />
             {errors.telefon && <p>Telefon is required</p>}
 
@@ -271,7 +271,6 @@ function App() {
 
             <label>Evt. kommentar til booking</label>
             <textarea {...register("comment")} />
-            
           </div>
         )}
 
