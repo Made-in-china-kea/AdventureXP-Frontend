@@ -1,6 +1,6 @@
-import TextInput from "./component/TextInputField";
-import DateInput from "./component/DateInputField";
-import NumberInput from "./component/NumberInputField";
+import TextInput from "./components/common/TextInputField";
+import DateInput from "./components/common/DateInputField";
+import NumberInput from "./components/common/NumberInputField";
 import "./App.css";
 
 function App() {
