@@ -1,6 +1,6 @@
 import TextInput from "./component/TextInputField";
-import DateInputFields from "./component/DateInputField";
-import NumberInputFields from "./component/NumberInputField";
+import DateInput from "./component/DateInputField";
+import NumberInput from "./component/NumberInputField";
 import "./App.css";
 
 function App() {
@@ -13,9 +13,9 @@ function App() {
           placeholder="Eksempel. Dennis-Zixiang Zhou"
         />
         <TextInput label="Email" placeholder="Enter your email" />
-        <DateInputFields label="eventdato"/>
-        <NumberInputFields label="Age" max={2} />
-        <NumberInputFields label="Telefonnummer på kontakt person" max={8} />
+        <DateInput label="eventdato"/>
+        <NumberInput label="Age" max={2} />
+        <NumberInput label="Telefonnummer på kontakt person" max={8} />
         <TextInput label="Evt. kommentar til booking" placeholder="" />
         <div>
           <select name="Activity" id="Activity">
@@ -35,10 +35,10 @@ function App() {
       <h1>This is for company events</h1>
       <form>
         <TextInput label="Navn på kontakt person" placeholder="Eksempel. Dennis-Zixiang Zhou" />
-        <NumberInputFields label="CVR" max={8}/>
-        <DateInputFields label="Eventdato"/>
+        <NumberInput label="CVR" max={8}/>
+        <DateInput label="Eventdato"/>
         <TextInput label="Email" placeholder="Enter your email" />
-        <NumberInputFields label="Telefonnummer på kontakt person" max={8} />
+        <NumberInput label="Telefonnummer på kontakt person" max={8} />
         <TextInput label="Evt. kommentar til booking" placeholder="" />
         <div>
           <select name="Activity-Packages" id="Activity-Packages">

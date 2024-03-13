@@ -6,7 +6,6 @@ interface DateInputFieldsProps {
 
 // This component is a date input field
 // Here, React.FC is a type that takes a props type parameter. This type parameter is used to type check the props of the component.
-// In this case, the component does not take any props, so the type parameter is not used.
 const DateInputFields: React.FC<DateInputFieldsProps> = ({label}) => {
   // The state of the date input field
   const [selectedDate, setSelectedDate] = useState("");
