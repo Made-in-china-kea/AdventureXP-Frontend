@@ -1,5 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
+}
+.input-grid {
+  display: grid;
+  grid-template-columns: auto auto; /* Defines two columns */
+  gap: 50px; /* Space between rows and columns */
+  padding: 10px;
+}
+
+.input-grid div {
+  display: flex;
+  align-items: center;
+}
+
+.input-grid label {
+  margin-right: 10px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
 }

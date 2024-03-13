@@ -28,8 +28,8 @@ function App() {
       activity: "",
       eventDate: "",
       activityStartTime: undefined,
-      comment: "",
-      companyName: "",
+      comment: undefined,
+      companyName: undefined,
       cvr: undefined,
     },
   });
@@ -46,7 +46,7 @@ function App() {
   return (
     <div>
       <h1>Choose customer type</h1>
-      {/* ----------------radio button for bussiness---------------- */}
+      {/* ----------------radio button for private---------------- */}
       <label>
         <input
           type="radio"
@@ -73,99 +73,120 @@ function App() {
           // for now we just alert the form data
           console.log(data);
         })}
+        className="form-container"
       >
         {customerType === "private" && (
-          <div>
-            <label>Fornavn: </label>
-            <input
-              type="text"
-              // we use the register function to register the input fields
-              {...register("firstName", { required: true })}
-            />
-            {/* we use the errors object to display the error message */}
-            {errors.firstName && <p>First name is required</p>}
+          <div className="input-grid">
+            <div>
+              <label className="input input-bordered flex items-center gap-2">Fornavn: </label>
+              <input
+                type="text"
+                // we use the register function to register the input fields
+                {...register("firstName", { required: true })}
+              />
+            
+              {/* we use the errors object to display the error message */}
+              {errors.firstName && <p>First name is required</p>}
+            </div>
 
-            <label>Efternavn: </label>
-            <input
-              type="text"
-              // we use the register function to register the input fields
-              {...register("lastName", { required: true })}
-            />
-            {/* we use the errors object to display the error message */}
-            {errors.firstName && <p>Last name is required</p>}
+            <div>
+              <label>Efternavn: </label>
+              <input
+                type="text"
+                // we use the register function to register the input fields
+                {...register("lastName", { required: true })}
+              />
+              {/* we use the errors object to display the error message */}
+              {errors.firstName && <p>Last name is required</p>}
+            </div>
 
-            <label>Telefon nummer: </label>
-            <input
-              type="tel"
-              maxLength={8}
-              {...register("telefon", { required: true, valueAsNumber: true })}
-            />
-            {errors.telefon && <p>Telefon is required</p>}
+            <div>
+              <label>Telefon nummer: </label>
+              <input
+                type="tel"
+                maxLength={8}
+                {...register("telefon", {
+                  required: true,
+                  valueAsNumber: true,
+                })}
+              />
+              {errors.telefon && <p>Telefon is required</p>}
+            </div>
 
-            <label>Email: </label>
-            <input
-              type="email"
-              {...register("email", {
-                required: true,
-                // we use the pattern attribute to validate the email
-                pattern: /^\S+@\S+$/i,
-              })}
-              {...register("email", { required: true })}
-            />
-            {errors.email && <p>Email is required</p>}
+            <div>
+              <label>Email: </label>
+              <input
+                type="email"
+                {...register("email", {
+                  required: true,
+                  // we use the pattern attribute to validate the email
+                  pattern: /^\S+@\S+$/i,
+                })}
+                {...register("email", { required: true })}
+              />
+              {errors.email && <p>Email is required</p>}
+            </div>
 
-            <label>Aktiviteter</label>
-            {/* The Controller component is a wrapper component that connects components  (like my DateInput component) with React Hook Form. */}
-            <Controller
-              name="activity"
-              // This prop is used to connect the Controller to the form context provided by the useForm hook.
-              control={control}
-              // This prop is used to define the rules for the input field.
-              rules={{ required: true }}
-              // This prop is used to render the select input field.
-              render={({ field }) => (
-                <select {...field}>
-                  <option value="gokart">Go-Kart</option>
-                  <option value="paintball">Paintball</option>
-                  <option value="biking">Biking</option>
-                  <option value="sumo-wrestling">Sumo Wrestling</option>
-                  <option value="mini-golf">Mini Golf</option>
-                </select>
+            <div>
+              <label>Aktiviteter</label>
+              {/* The Controller component is a wrapper component that connects components  (like my DateInput component) with React Hook Form. */}
+              <Controller
+                name="activity"
+                // This prop is used to connect the Controller to the form context provided by the useForm hook.
+                control={control}
+                // This prop is used to define the rules for the input field.
+                rules={{ required: true }}
+                // This prop is used to render the select input field.
+                render={({ field }) => (
+                  <select {...field}>
+                    <option value="gokart">Go-Kart</option>
+                    <option value="paintball">Paintball</option>
+                    <option value="biking">Biking</option>
+                    <option value="sumo-wrestling">Sumo Wrestling</option>
+                    <option value="mini-golf">Mini Golf</option>
+                  </select>
+                )}
+              />
+              {errors.activity && <p>En aktivitet is required</p>}
+            </div>
+
+            <div>
+              <label>Eventdato</label>
+              {/* The Controller component is a wrapper component that connects components  (like my DateInput component) with React Hook Form. */}
+              <Controller
+                // This prop is used to connect the Controller to the form context provided by the useForm hook.
+                control={control}
+                // This prop is used to define the name of the input field which also represents the key in the form data.
+                name="eventDate"
+                // This prop is used to define the rules for the input field.
+                rules={{ required: true }}
+                // This prop is used to render the input field from my DateInput component.
+                // The field prop is used to connect the input field to the form context provided by the useForm hook.
+                render={({ field }) => <DateInput key="eventDate" {...field} />}
+              />
+              {errors.eventDate && <p>Event date is required</p>}
+            </div>
+
+            <div>
+              <label>Starttid for aktiviteten</label>
+              <select
+                {...register("activityStartTime", {
+                  required: "Start time is required",
+                })}
+              >
+                <option value="">Select start time</option>{" "}
+                {/* Default/placeholder option */}
+                {makeTimeOptions()}
+              </select>
+              {errors.activityStartTime && (
+                <p>{errors.activityStartTime.message}</p>
               )}
-            />
-            {errors.activity && <p>En aktivitet is required</p>}
+            </div>
 
-            <label>Eventdato</label>
-            {/* The Controller component is a wrapper component that connects components  (like my DateInput component) with React Hook Form. */}
-            <Controller
-              // This prop is used to connect the Controller to the form context provided by the useForm hook.
-              control={control}
-              // This prop is used to define the name of the input field which also represents the key in the form data.
-              name="eventDate"
-              // This prop is used to define the rules for the input field.
-              rules={{ required: true }}
-              // This prop is used to render the input field from my DateInput component.
-              // The field prop is used to connect the input field to the form context provided by the useForm hook.
-              render={({ field }) => <DateInput key="eventDate" {...field} />}
-            />
-            {errors.eventDate && <p>Event date is required</p>}
-
-            <label>Starttid for aktiviteten</label>
-            <select
-              {...register("activityStartTime", {
-                required: "Start time is required",
-              })}
-            >
-              <option value="">Select start time</option>{" "}
-              {/* Default/placeholder option */}
-              {makeTimeOptions()}
-            </select>
-            {errors.activityStartTime && (
-              <p>{errors.activityStartTime.message}</p>
-            )}
-
-            <label>Evt. kommentar til booking</label>
-            <textarea {...register("comment")} />
+            <div>
+              <label>Evt. kommentar til booking</label>
+              <textarea {...register("comment")} />
+            </div>
           </div>
         )}
 
