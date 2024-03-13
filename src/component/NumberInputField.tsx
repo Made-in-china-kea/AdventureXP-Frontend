@@ -7,9 +7,7 @@ interface NumberInputFieldProps {
 }
 
 // This component is a number input field
-// React.FC is a type that takes a props type parameter.
-// Here React.FC is checkking NumberInputFieldProps
-const NumberInputField: React.FC<NumberInputFieldProps> = ({ label, max }) => {
+export default function NumberInputField({ label, max }: NumberInputFieldProps){
   // The state of the number input field is a string
   const [value, setValue] = useState<string>("");
   // This is because max attribute of input does not work if the type is number
@@ -35,6 +33,4 @@ const NumberInputField: React.FC<NumberInputFieldProps> = ({ label, max }) => {
       <input type="text" value={value} onChange={handleChange} max={max} />
     </div>
   );
-};
-
-export default NumberInputField;
+}

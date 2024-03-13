@@ -1,4 +1,3 @@
-import React from "react";
 
 // The props of the component
 interface InputFieldProps {
@@ -7,9 +6,7 @@ interface InputFieldProps {
 }
 
 // This component is a text input field
-// React.FC is a type that takes a props type parameter.
-// Here React.FC is checkking InputFieldProps
-const InputField: React.FC<InputFieldProps> = ({ label, placeholder }) => {
+ export default function TextInput({ label, placeholder }: InputFieldProps) {
   return (
     <div>
       <label>{label}</label>
@@ -17,6 +14,5 @@ const InputField: React.FC<InputFieldProps> = ({ label, placeholder }) => {
       <input type="text" placeholder={placeholder} />
     </div>
   );
-};
+}
 
-export default InputField;
