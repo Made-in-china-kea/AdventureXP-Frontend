@@ -46,7 +46,7 @@ function App() {
   return (
     <div>
       <h1>Choose customer type</h1>
-      {/* radio button for bussiness */}
+      {/* ----------------radio button for bussiness---------------- */}
       <label>
         <input
           type="radio"
@@ -56,7 +56,7 @@ function App() {
         />
         Privat
       </label>
-      {/* radio button for bussiness */}
+      {/* ----------------radio button for bussiness---------------- */}
       <label>
         <input
           type="radio"
@@ -76,7 +76,7 @@ function App() {
       >
         {customerType === "private" && (
           <div>
-            <label>Fulde navn: </label>
+            <label>Fornavn: </label>
             <input
               type="text"
               // we use the register function to register the input fields
@@ -84,6 +84,15 @@ function App() {
             />
             {/* we use the errors object to display the error message */}
             {errors.firstName && <p>First name is required</p>}
+
+            <label>Efternavn: </label>
+            <input
+              type="text"
+              // we use the register function to register the input fields
+              {...register("lastName", { required: true })}
+            />
+            {/* we use the errors object to display the error message */}
+            {errors.firstName && <p>Last name is required</p>}
 
             <label>Telefon nummer: </label>
             <input
@@ -259,6 +268,10 @@ function App() {
             {errors.activityStartTime && (
               <p>{errors.activityStartTime.message}</p>
             )}
+
+            <label>Evt. kommentar til booking</label>
+            <textarea {...register("comment")} />
+            
           </div>
         )}
 
