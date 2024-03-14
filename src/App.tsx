@@ -199,7 +199,9 @@ function App() {
                 render={({ field }) => (
                   <select
                     {...field}
-                    className="select select-bordered w-full w-06"
+                    className={`input input-bordered flex items-center gap-2 w-96 ${
+                      errors.email ? "input-error" : ""
+                    }`}
                   >
                     <option disabled selected value="">
                       Vælg en aktivitet
@@ -210,6 +212,7 @@ function App() {
                     <option value="sumo-wrestling">Sumo Wrestling</option>
                     <option value="mini-golf">Mini Golf</option>
                   </select>
+                  
                 )}
               />
             </div>
@@ -238,7 +241,11 @@ function App() {
             </div>
 
             <div>
-              <select className="select select-bordered w-full w-96">
+              <select
+                className={`input input-bordered flex items-center gap-2 w-96 ${
+                  errors.email ? "input-error" : ""
+                }`}
+              >
                 <option disabled selected>
                   Vælg en start tid
                 </option>
