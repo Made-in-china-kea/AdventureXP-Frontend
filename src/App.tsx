@@ -240,7 +240,7 @@ function App() {
             <div>
               <select className="select select-bordered w-full w-96">
                 <option disabled selected>
-                  Vælg starttid for aktiviteten
+                  Vælg en start tid
                 </option>
                 {makeTimeOptions()}
               </select>
