@@ -23,14 +23,14 @@ function App() {
     defaultValues: {
       firstName: "",
       lastName: "",
-      telefon: undefined,
+      telefon: null,
       email: "",
       activity: "",
       eventDate: "",
-      activityStartTime: undefined,
-      comment: undefined,
-      companyName: undefined,
-      cvr: undefined,
+      activityStartTime: null,
+      comment: null,
+      companyName: null,
+      cvr: null,
     },
   });
 
@@ -45,27 +45,30 @@ function App() {
 
   return (
     <div>
-      <h1>Choose customer type</h1>
-      {/* ----------------radio button for private---------------- */}
-      <label>
-        <input
-          type="radio"
-          value="private"
-          checked={customerType === "private"}
-          onChange={() => setCustomerType("private")}
-        />
-        Privat
-      </label>
-      {/* ----------------radio button for bussiness---------------- */}
-      <label>
-        <input
-          type="radio"
-          value="business"
-          checked={customerType === "business"}
-          onChange={() => setCustomerType("business")}
-        />
-        Erhverv
-      </label>
+      <h1>AdventureXP - Booking</h1>
+
+      <div>
+        {/* ----------------radio button for private---------------- */}
+        <label className="input input-bordered flex items-center gap-2">
+          <input
+            type="radio"
+            className="radio"
+            value="private"
+            checked={customerType === "private"}
+            onChange={() => setCustomerType("private")}
+          />
+          Privat
+          {/* ----------------radio button for bussiness---------------- */}
+          <input
+            type="radio"
+            className="radio"
+            value="business"
+            checked={customerType === "business"}
+            onChange={() => setCustomerType("business")}
+          />
+          Erhverv
+        </label>
+      </div>
 
       <form
         // we use the handleSubmit function to handle the form submission
@@ -78,57 +81,113 @@ function App() {
         {customerType === "private" && (
           <div className="input-grid">
             <div>
-              <label className="input input-bordered flex items-center gap-2">Fornavn: </label>
-              <input
-                type="text"
-                // we use the register function to register the input fields
-                {...register("firstName", { required: true })}
-              />
-            
-              {/* we use the errors object to display the error message */}
-              {errors.firstName && <p>First name is required</p>}
+              <label
+                className={`input input-bordered flex items-center gap-2 w-96 ${
+                  errors.firstName ? "input-error" : ""
+                }`}
+              >
+                Fornavn:
+                <input
+                  type="text"
+                  className="grow"
+                  // we use the register function to register the input fields
+                  {...register("firstName", { required: true })}
+                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  className="w-4 h-4 opacity-70"
+                >
+                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+                </svg>
+              </label>
             </div>
 
             <div>
-              <label>Efternavn: </label>
-              <input
-                type="text"
-                // we use the register function to register the input fields
-                {...register("lastName", { required: true })}
-              />
-              {/* we use the errors object to display the error message */}
-              {errors.firstName && <p>Last name is required</p>}
+              <label
+                className={`input input-bordered flex items-center gap-2 w-96 ${
+                  errors.lastName ? "input-error" : ""
+                }`}
+              >
+                Efternavn:
+                <input
+                  type="text"
+                  className="grow"
+                  // we use the register function to register the input fields
+                  {...register("lastName", { required: true })}
+                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  className="w-4 h-4 opacity-70"
+                >
+                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+                </svg>
+              </label>
             </div>
 
             <div>
-              <label>Telefon nummer: </label>
-              <input
-                type="tel"
-                maxLength={8}
-                {...register("telefon", {
-                  required: true,
-                  valueAsNumber: true,
-                })}
-              />
-              {errors.telefon && <p>Telefon is required</p>}
+              <label
+                className={`input input-bordered flex items-center gap-2 w-96 ${
+                  errors.telefon ? "input-error" : ""
+                }`}
+              >
+                Telefon:
+                <input
+                  type="tel"
+                  maxLength={8}
+                  className="grow"
+                  {...register("telefon", {
+                    required: true,
+                    valueAsNumber: true,
+                  })}
+                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  className="w-4 h-4 opacity-70"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
+                  />
+                </svg>
+              </label>
             </div>
 
             <div>
-              <label>Email: </label>
-              <input
-                type="email"
-                {...register("email", {
-                  required: true,
-                  // we use the pattern attribute to validate the email
-                  pattern: /^\S+@\S+$/i,
-                })}
-                {...register("email", { required: true })}
-              />
-              {errors.email && <p>Email is required</p>}
+              <label
+                className={`input input-bordered flex items-center gap-2 w-96 ${
+                  errors.email ? "input-error" : ""
+                }`}
+              >
+                Email:
+                <input
+                  type="email"
+                  className="grow"
+                  {...register("email", {
+                    required: true,
+                    // we use the pattern attribute to validate the email
+                    pattern: /^\S+@\S+$/i,
+                  })}
+                  {...register("email", { required: true })}
+                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  className="w-4 h-4 opacity-70"
+                >
+                  <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
+                  <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
+                </svg>
+              </label>
             </div>
 
             <div>
-              <label>Aktiviteter</label>
               {/* The Controller component is a wrapper component that connects components  (like my DateInput component) with React Hook Form. */}
               <Controller
                 name="activity"
@@ -138,7 +197,13 @@ function App() {
                 rules={{ required: true }}
                 // This prop is used to render the select input field.
                 render={({ field }) => (
-                  <select {...field}>
+                  <select
+                    {...field}
+                    className="select select-bordered w-full w-06"
+                  >
+                    <option disabled selected value="">
+                      Vælg en aktivitet
+                    </option>{" "}
                     <option value="gokart">Go-Kart</option>
                     <option value="paintball">Paintball</option>
                     <option value="biking">Biking</option>
@@ -147,45 +212,49 @@ function App() {
                   </select>
                 )}
               />
-              {errors.activity && <p>En aktivitet is required</p>}
             </div>
 
             <div>
-              <label>Eventdato</label>
-              {/* The Controller component is a wrapper component that connects components  (like my DateInput component) with React Hook Form. */}
-              <Controller
-                // This prop is used to connect the Controller to the form context provided by the useForm hook.
-                control={control}
-                // This prop is used to define the name of the input field which also represents the key in the form data.
-                name="eventDate"
-                // This prop is used to define the rules for the input field.
-                rules={{ required: true }}
-                // This prop is used to render the input field from my DateInput component.
-                // The field prop is used to connect the input field to the form context provided by the useForm hook.
-                render={({ field }) => <DateInput key="eventDate" {...field} />}
-              />
-              {errors.eventDate && <p>Event date is required</p>}
-            </div>
-
-            <div>
-              <label>Starttid for aktiviteten</label>
-              <select
-                {...register("activityStartTime", {
-                  required: "Start time is required",
-                })}
+              <label
+                className={`input input-bordered flex justify-center gap-2 w-96 ${
+                  errors.eventDate ? "input-error" : ""
+                }`}
               >
-                <option value="">Select start time</option>{" "}
-                {/* Default/placeholder option */}
+                {/* The Controller component is a wrapper component that connects components  (like my DateInput component) with React Hook Form. */}
+                <Controller
+                  // This prop is used to connect the Controller to the form context provided by the useForm hook.
+                  control={control}
+                  // This prop is used to define the name of the input field which also represents the key in the form data.
+                  name="eventDate"
+                  // This prop is used to define the rules for the input field.
+                  rules={{ required: true }}
+                  // This prop is used to render the input field from my DateInput component.
+                  // The field prop is used to connect the input field to the form context provided by the useForm hook.
+                  render={({ field }) => (
+                    <DateInput key="eventDate" {...field} />
+                  )}
+                />
+              </label>
+            </div>
+
+            <div>
+              <select className="select select-bordered w-full w-96">
+                <option disabled selected>
+                  Vælg starttid for aktiviteten
+                </option>
                 {makeTimeOptions()}
               </select>
-              {errors.activityStartTime && (
-                <p>{errors.activityStartTime.message}</p>
-              )}
             </div>
 
             <div>
-              <label>Evt. kommentar til booking</label>
-              <textarea {...register("comment")} />
+              {/*This is a empty div it is just a spacer for the grid*/}
+            </div>
+
+            <div>
+              <textarea
+                className="textarea textarea-bordered w-96 h-40"
+                placeholder="Evt. kommentar til booking"
+              ></textarea>
             </div>
           </div>
         )}
@@ -295,7 +364,9 @@ function App() {
           </div>
         )}
 
-        <input type="submit" />
+        <button type="submit" className="button-27">
+          Book
+        </button>
       </form>
     </div>
   );
