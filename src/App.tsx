@@ -27,7 +27,7 @@ function App() {
       email: "",
       activity: "",
       eventDate: "",
-      activityStartTime: null,
+      activityStartTime: "default",
       comment: null,
       companyName: null,
       cvr: null,
@@ -212,7 +212,6 @@ function App() {
                     <option value="sumo-wrestling">Sumo Wrestling</option>
                     <option value="mini-golf">Mini Golf</option>
                   </select>
-                  
                 )}
               />
             </div>
@@ -242,11 +241,15 @@ function App() {
 
             <div>
               <select
+                {...register("activityStartTime", {
+                  required: true,
+                  setValueAs: (value) => +value.replace(":", ""),
+                })}
                 className={`input input-bordered flex items-center gap-2 w-96 ${
-                  errors.email ? "input-error" : ""
+                  errors.activityStartTime ? "input-error" : ""
                 }`}
               >
-                <option disabled selected>
+                <option disabled value="default">
                   Vælg en start tid
                 </option>
                 {makeTimeOptions()}
@@ -261,6 +264,7 @@ function App() {
               <textarea
                 className="textarea textarea-bordered w-96 h-40"
                 placeholder="Evt. kommentar til booking"
+                {...register("comment")}
               ></textarea>
             </div>
           </div>
