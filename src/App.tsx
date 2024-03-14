@@ -51,9 +51,9 @@ function App() {
     <div>
       <h1>AdventureXP - Booking</h1>
 
-      <div>
+      <div className="mb-3">
         {/* ----------------radio button for private---------------- */}
-        <label className="input input-bordered flex items-center gap-2">
+        <label className="input input-bordered flex items-center gap-2 ">
           <input
             type="radio"
             className="radio"
@@ -532,7 +532,7 @@ function App() {
         )}
 
         <button type="submit" className="button-27">
-          Book
+          Send Booking
         </button>
       </form>
     </div>
