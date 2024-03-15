@@ -3,9 +3,9 @@ import "./App.css";
 //-------------Dependencies-------------//
 import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-//import { addRecipe } from "./services/apiFacade";
 
 //-------------Components-------------//
+//import { addRecipe } from "./services/apiFacade";
 import PrivateBookingForm from "./components/common/PrivateBookingForm";
 import BusinessBookingForm from "./components/common/BusinessBookingForm";
 
@@ -39,7 +39,7 @@ function App() {
         <form
           // we use the handleSubmit function to handle the form submission
           onSubmit={handleSubmit(async (data) => {
-            /*
+            /* remove comments to enable the addRecipe function
                   try {
                     const newBooking = {
                     id: null,
@@ -58,8 +58,11 @@ function App() {
 
                     const response = await addRecipe(newBooking);
                     console.log("New booking added", response);
+                    alert("New booking added");
+                    reset();
                   } catch (error) {
                     console.log("Failed to add booking", error);
+                    alert("Failed to add booking");
                   }
             */
             console.log(data);
