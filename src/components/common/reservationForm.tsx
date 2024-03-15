@@ -5,7 +5,10 @@ import {
   ReservationDto,
 } from "../../types";
 import { useEffect, useState } from "react";
-import { getActivities, getAvailableTimes } from "../../services/api/apiFacade";
+import {
+  getActivities,
+  getAvailableTimes,
+} from "../../services/api/reservationAPI";
 
 type availableStartTimes = {
   [time: string]: number;
