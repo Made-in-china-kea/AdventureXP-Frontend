@@ -10,8 +10,12 @@ import PrivateBookingForm from "./components/common/PrivateBookingForm";
 import BusinessBookingForm from "./components/common/BusinessBookingForm";
 
 function App() {
+
+  // we use the useState hook to create a state and a function to update the state
+  // we set the default value of the state to "private"
   const [customerType, setCustomerType] = useState("private");
 
+  // we use the useForm hook to create a form with the default values
   const methods = useForm({
     // we set the default values of the form
     defaultValues: {
@@ -29,12 +33,16 @@ function App() {
       customerType: customerType,
     },
   });
+  // We use the handleSubmit function to handle the form submission
+  // and the reset function to reset the form
+  // other methods can be added to the methods object
   const { handleSubmit, reset } = methods;
 
   return (
     <div>
       <h1>AdventureXP - Booking</h1>
-
+      {/*we use the FormProvider to wrap the form and pass the methods*/}
+      {/*the methods for now is handleSubmit and reset*/}
       <FormProvider {...methods}>
         <form
           // we use the handleSubmit function to handle the form submission
@@ -69,6 +77,8 @@ function App() {
             reset();
           })}
         >
+
+          {/* ----------------Radio buttons for swtiching between Private or Business---------------- */}
           <div className="mb-3">
             {/* ----------------radio button for private---------------- */}
             <label className="input input-bordered flex items-center gap-2 ">
@@ -92,9 +102,11 @@ function App() {
             </label>
           </div>
 
+          {/* ----------------Conditional render, so its either Private or Business---------------- */}
           {customerType === "private" && <PrivateBookingForm />}
           {customerType === "business" && <BusinessBookingForm />}
 
+          {/* ----------------Simple submit button---------------- */}
           <button type="submit" className="button-27">
             Send Booking
           </button>
