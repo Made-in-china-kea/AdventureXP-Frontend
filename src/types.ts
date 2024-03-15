@@ -1,4 +1,5 @@
 export type ReservationDto = {
+  customerType: "Private" | "Company";
   id?: number; // Optional for new reservations
   guest?: GuestDto;
   company?: CompanyDto;
@@ -9,7 +10,7 @@ export type ReservationDto = {
   edited?: string; // Optional for existing reservations
   reservedActivities: ReservationActivityDto[];
   isCancelled: boolean;
-}
+};
 
 export type GuestDto = {
   id?: number;
@@ -17,7 +18,7 @@ export type GuestDto = {
   lastName: string;
   phoneNumber?: string; // Optional phone number
   email: string;
-}
+};
 
 export type CompanyDto = {
   id?: number;
@@ -26,7 +27,7 @@ export type CompanyDto = {
   contactLastName: string;
   contactEmail: string;
   cvr?: number; // Optional CVR number
-}
+};
 
 export type ReservationActivityDto = {
   reservation?: ReservationDto; // Optional reference to Reservation
@@ -35,7 +36,7 @@ export type ReservationActivityDto = {
   reservedSlots: number;
   endTime: number;
   created: string; // Date string in ISO format
-}
+};
 
 export type ActivityDto = {
   id: number; // Activity ID is a required identifier
@@ -43,4 +44,4 @@ export type ActivityDto = {
   price: number;
   ageLimit: number;
   timeSlot: number; // Assuming timeSlot represents duration in minutes or hours
-}
+};
