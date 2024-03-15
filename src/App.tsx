@@ -37,11 +37,18 @@ function App() {
   });
 
   function makeTimeOptions() {
+    // we make a loop to create the time options
+    // from 08:00 to 22:00
     for (let i = 8; i < 23; i++) {
+      // we format the time to be like 08:00
+      // this is just for the user to see
       const formatTime = `${i < 10 ? "0" : ""}${i}:00`;
+      // we reformat the time to be like 0800
+      // this is just for the backend to use
       const formatTimeToNumber = parseInt(formatTime.replace(":", ""));
+      // we push the time options to the timeOptions array
       timeOptions.push(
-        <option value={formatTimeToNumber}>{formatTime}</option>
+        <option value={formatTimeToNumber}>kl. {formatTime}</option>
       );
     }
     return timeOptions;
@@ -142,6 +149,7 @@ function App() {
                   type="tel"
                   maxLength={8}
                   className="grow"
+                  // we use the register function to register the input fields
                   {...register("telefon", {
                     required: true,
                     valueAsNumber: true,
@@ -171,6 +179,7 @@ function App() {
                 <input
                   type="email"
                   className="grow"
+                  // we use the register function to register the input fields
                   {...register("email", {
                     required: true,
                     // we use the pattern attribute to validate the email
@@ -192,9 +201,12 @@ function App() {
 
             <div>
               {/* The Controller component is a wrapper component that connects components  (like my DateInput component) with React Hook Form. */}
+              {/* The Controller component is designed to handle the registration of the input field for you.*/}
+              {/* It's specifically built to work with custom input components that don't expose a standard interface for forms, such as ref and onChange.*/}
               <Controller
+                // This prop is used to define the name of the input field which also represents the key in the form data.
                 name="activity"
-                // This prop is used to connect the Controller to the form context provided by the useForm hook.
+                // This prop is used to connect the Controller to the form provided by the useForm hook.
                 control={control}
                 // This prop is used to define the rules for the input field.
                 rules={{ required: true }}
@@ -226,15 +238,16 @@ function App() {
                 }`}
               >
                 {/* The Controller component is a wrapper component that connects components  (like my DateInput component) with React Hook Form. */}
+                {/* The Controller component is designed to handle the registration of the input field for you.*/}
+                {/* It's specifically built to work with custom input components that don't expose a standard interface for forms, such as ref and onChange.*/}
                 <Controller
-                  // This prop is used to connect the Controller to the form context provided by the useForm hook.
-                  control={control}
                   // This prop is used to define the name of the input field which also represents the key in the form data.
                   name="eventDate"
+                  // This prop is used to connect the Controller to the form provided by the useForm hook.
+                  control={control}
                   // This prop is used to define the rules for the input field.
                   rules={{ required: true }}
                   // This prop is used to render the input field from my DateInput component.
-                  // The field prop is used to connect the input field to the form context provided by the useForm hook.
                   render={({ field }) => (
                     <DateInput key="eventDate" {...field} />
                   )}
@@ -243,9 +256,11 @@ function App() {
             </div>
 
             <div>
+              {/* The Controller component is a wrapper component that connects components  (like my DateInput component) with React Hook Form. */}
               <Controller
+                // This prop is used to define the name of the input field which also represents the key in the form data.
                 name="activityStartTime"
-                // This prop is used to connect the Controller to the form context provided by the useForm hook.
+                // This prop is used to connect the Controller to the form provided by the useForm hook.
                 control={control}
                 // This prop is used to define the rules for the input field.
                 rules={{ required: true }}
@@ -268,12 +283,15 @@ function App() {
 
             <div>
               {/*This is a empty div it is just a spacer for the grid*/}
+              {/*It can be used if we later on want a logo or a picture here*/}
             </div>
 
             <div>
+              {/*Text area input for additional comments for the user*/}
               <textarea
                 className="textarea textarea-bordered w-96 h-40"
                 placeholder="Evt. kommentar til booking"
+                // we use the register function to register the input fields
                 {...register("comment")}
               ></textarea>
             </div>
@@ -292,6 +310,7 @@ function App() {
                 <input
                   type="text"
                   className="grow"
+                  // we use the register function to register the input fields
                   {...register("companyName", { required: true })}
                 />
                 <svg
@@ -318,6 +337,7 @@ function App() {
                 <input
                   type="text"
                   className="grow"
+                  // we use the register function to register the input fields
                   {...register("cvr", { required: true })}
                 />
                 <svg
@@ -393,6 +413,7 @@ function App() {
                   type="tel"
                   maxLength={8}
                   className="grow"
+                  // we use the register function to register the input fields
                   {...register("telefon", {
                     required: true,
                     valueAsNumber: true,
@@ -422,12 +443,12 @@ function App() {
                 <input
                   type="email"
                   className="grow"
+                  // we use the register function to register the input fields
                   {...register("email", {
                     required: true,
                     // we use the pattern attribute to validate the email
                     pattern: /^\S+@\S+$/i,
                   })}
-                  {...register("email", { required: true })}
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -443,9 +464,12 @@ function App() {
 
             <div>
               {/* The Controller component is a wrapper component that connects components  (like my DateInput component) with React Hook Form. */}
+              {/* The Controller component is designed to handle the registration of the input field for you.*/}
+              {/* It's specifically built to work with custom input components that don't expose a standard interface for forms, such as ref and onChange.*/}{" "}
               <Controller
+                // This prop is used to define the name of the input field which also represents the key in the form data.
                 name="activity"
-                // This prop is used to connect the Controller to the form context provided by the useForm hook.
+                // This prop is used to connect the Controller to the form provided by the useForm hook.
                 control={control}
                 // This prop is used to define the rules for the input field.
                 rules={{ required: true }}
@@ -477,6 +501,8 @@ function App() {
                 }`}
               >
                 {/* The Controller component is a wrapper component that connects components  (like my DateInput component) with React Hook Form. */}
+                {/* The Controller component is designed to handle the registration of the input field for you.*/}
+                {/* It's specifically built to work with custom input components that don't expose a standard interface for forms, such as ref and onChange.*/}{" "}
                 <Controller
                   // This prop is used to connect the Controller to the form context provided by the useForm hook.
                   control={control}
@@ -519,12 +545,16 @@ function App() {
 
             <div>
               {/*This is a empty div it is just a spacer for the grid*/}
+              {/*It can be used if we later on want a logo or a picture here*/}{" "}
             </div>
 
             <div>
+              {/*Text area input for additional comments for the user*/}
+
               <textarea
                 className="textarea textarea-bordered w-96 h-40"
                 placeholder="Evt. kommentar til booking"
+                // we use the register function to register the input fields
                 {...register("comment")}
               ></textarea>
             </div>
