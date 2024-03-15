@@ -1,6 +1,10 @@
-import { API_URL } from "../settings";
-import { makeOptions, handleHttpErrors } from "./fetchUtils";
-import { ActivityDto, ReservationDto } from "../types";
+import { API_URL } from "../../settings";
+import { makeOptions, handleHttpErrors } from "../fetchUtils";
+import {
+  ActivityDto,
+  ReservationActivityDto,
+  ReservationDto,
+} from "../../types";
 const RESERVATION_URL = API_URL + "/api/reservation";
 
 let reservations: Array<ReservationDto> = [];
@@ -66,7 +70,7 @@ async function getActivities(): Promise<Array<ActivityDto>> {
 async function getAvailableTimes(
   activityId: number,
   date: string
-): Promise<Array<number>> {
+): Promise<Array<ReservationActivityDto>> {
   const res = await fetch(
     `${RESERVATION_URL}/availableTimes/${activityId}/${date}`
   ).then(handleHttpErrors);

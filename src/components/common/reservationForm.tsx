@@ -1,13 +1,17 @@
 import { useForm } from "react-hook-form";
-import { ActivityDto, ReservationDto } from "../../types";
+import {
+  ActivityDto,
+  ReservationActivityDto,
+  ReservationDto,
+} from "../../types";
 import { useEffect, useState } from "react";
-import { getActivities } from "../../services/apiFacade";
+import { getActivities, getAvailableTimes } from "../../services/api/apiFacade";
 
-type availableTimes = {
+type availableStartTimes = {
   [time: string]: number;
 };
 
-const availableTimes: availableTimes = {
+const availableStartTimes: availableStartTimes = {
   "08:00": 800,
   "09:00": 900,
   "10:00": 1000,
@@ -27,27 +31,45 @@ const availableTimes: availableTimes = {
 
 export default function ReservationForm() {
   const [customerType, setCustomerType] = useState("private");
-  const [availableTimes, setAvailableTimes] = useState<availableTimes[]>([]);
+  const [availableStartTimes, setAvailableStartTimes] = useState<
+    availableStartTimes[]
+  >([]);
   const [selectedActivity, setSelectedActivity] = useState<ActivityDto>();
-  //   const [selectedTime, setSelectedTime] = useState<number>();
-  //   const [selectedDate, setSelectedDate] = useState<string>();
-  //   const [selectedActivities, setSelectedActivities] = useState<ActivityDto[]>();
   const [activities, setActivities] = useState<ActivityDto[]>([]);
+  const [selectedDate, setSelectedDate] = useState<string>("");
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ReservationDto>();
+  } = useForm<ReservationDto>({
+    defaultValues: {
+      reservationDate: selectedDate,
+      created: new Date().toISOString(),
+    },
+  });
 
   // set the available times
-  setAvailableTimes(availableTimes);
+  setAvailableStartTimes(availableStartTimes);
 
   // available times
   useEffect(() => {
-    setAvailableTimes(availableTimes);
-  }, [selectedActivity]);
+    if (selectedActivity) {
+      const reservations = getAvailableTimes(selectedActivity.id, selectedDate);
+      getAvailableStartTimesFromReservationActivityDto(reservations);
+    }
+  }, [selectedActivity, availableStartTimes]);
 
+  // function to get the available times from array of reservationActivityDto
+  function getAvailableStartTimesFromReservationActivityDto(
+    reservations: ReservationActivityDto[]
+  ) {
+    const availableStartTimes: availableStartTimes = {};
+    reservations.forEach((reservation) => {
+      availableStartTimes[reservation.startTime] = reservation.reservedSlots;
+    });
+    setAvailableStartTimes(availableStartTimes);
+  }
   // set the activities
   useEffect(() => {
     getActivities().then((data) => setActivities(data));
@@ -98,6 +120,75 @@ export default function ReservationForm() {
           />
           Erhverv
         </label>
+        {/* // default fields */}
+        <div>
+          <label
+            className={`input input-bordered flex items-center gap-2 w-96 ${
+              errors.reservationDate ? "input-error" : ""
+            }`}>
+            Dato:
+            <input
+              type="date"
+              className="grow"
+              // we use the register function to register the input fields
+              onChange={(e) => setSelectedDate(e.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label
+            className={`input input-bordered flex items-center gap-2 w-96 ${
+              errors.reservationTime ? "input-error" : ""
+            }`}>
+            Starttid:
+            <select
+              className="grow"
+              // we use the register function to register the input fields
+              {...register("reservationTime", { required: true })}>
+              <option value="default">Vælg starttid</option>
+              {makeTimeOptions()}
+            </select>
+          </label>
+        </div>
+        <div>
+          <label
+            className={`input input-bordered flex items-center gap-2 w-96 ${
+              errors.numberOfParticipants ? "input-error" : ""
+            }`}>
+            Antal deltagere:
+            <input
+              type="number"
+              className="grow"
+              // we use the register function to register the input fields
+              {...register("numberOfParticipants", { required: true })}
+            />
+          </label>
+        </div>
+        <div>
+          <label
+            className={`input input-bordered flex items-center gap-2 w-96 ${
+              errors.reservedActivities ? "input-error" : ""
+            }`}>
+            Aktivitet:
+            <select
+              className="grow"
+              // we use the register function to register the input fields
+              {...register("reservedActivities", { required: true })}
+              onChange={(e) => {
+                const activity = activities.find(
+                  (a) => a.id === parseInt(e.target.value)
+                );
+                if (activity) {
+                  setSelectedActivity(activity);
+                }
+              }}>
+              <option value="default">Vælg aktivitet</option>
+              {activities.map((activity) => (
+                <option value={activity.id}>{activity.name}</option>
+              ))}
+            </select>
+          </label>
+        </div>
         {/* // company fields */}
         {customerType === "business" && (
           <div>
@@ -226,36 +317,7 @@ export default function ReservationForm() {
             </div>
           </div>
         )}
-        {/* // default fields */}
-        <div>
-          <label
-            className={`input input-bordered flex items-center gap-2 w-96 ${
-              errors.reservationDate ? "input-error" : ""
-            }`}>
-            Dato:
-            <input
-              type="date"
-              className="grow"
-              // we use the register function to register the input fields
-              {...register("reservationDate", { required: true })}
-            />
-          </label>
-        </div>
-        <div>
-          <label
-            className={`input input-bordered flex items-center gap-2 w-96 ${
-              errors.reservationTime ? "input-error" : ""
-            }`}>
-            Starttid:
-            <select
-              className="grow"
-              // we use the register function to register the input fields
-              {...register("reservationTime", { required: true })}>
-              <option value="default">Vælg starttid</option>
-              {makeTimeOptions()}
-            </select>
-          </label>
-        </div>
+
         <button type="submit" className="button-27">
           Send Booking
         </button>

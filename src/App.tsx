@@ -8,7 +8,7 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<ReservationForm />} />
+        <Route path="/" element={<h1>This is the homepage</h1>} />
 
         <Route path="/reservation" element={<ReservationForm />} />
 

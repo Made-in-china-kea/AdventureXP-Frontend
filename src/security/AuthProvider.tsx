@@ -1,7 +1,7 @@
 import { createContext, useState, ReactNode } from "react";
-import { authProvider, User } from "../services/authFacade";
+import { authProvider, User } from "../services/api/authAPI";
 import { useContext } from "react";
-import { LoginResponse, LoginRequest } from "../services/authFacade";
+import { LoginResponse, LoginRequest } from "../services/api/authAPI";
 
 interface AuthContextType {
   username: string | null;

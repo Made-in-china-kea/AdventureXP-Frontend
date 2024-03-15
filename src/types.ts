@@ -3,7 +3,7 @@ export type ReservationDto = {
   id?: number; // Optional for new reservations
   guest?: GuestDto;
   company?: CompanyDto;
-  reservationDate: Date;
+  reservationDate: string; // Date string in ISO format
   reservationTime: number;
   numberOfParticipants: number;
   created: string; // Date string in ISO format
