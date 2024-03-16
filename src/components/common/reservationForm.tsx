@@ -23,45 +23,20 @@ export default function ReservationForm() {
     },
   });
 
-  // set the available slots
-  useEffect(() => {
-    if (selectedActivity && selectedDate) {
-      getAvailableSlots(selectedActivity.id, selectedDate).then((data) =>
-        console.log(data)
-      );
-    }
-  }, [selectedActivity, selectedDate]);
   // set the activities
   useEffect(() => {
     getActivities().then((data) => setActivities(data));
   }, []);
-  const timeOptions: JSX.Element[] = [];
 
   const onSubmit = (data: ReservationDto) => {
     console.log(data);
   };
 
-  function makeTimeOptions() {
-    // we make a loop to create the time options
-    // from 08:00 to 22:00
-    for (let i = 8; i < 23; i++) {
-      // we format the time to be like 08:00
-      // this is just for the user to see
-      const formatTime = `${i < 10 ? "0" : ""}${i}:00`;
-      // we reformat the time to be like 0800
-      // this is just for the backend to use
-      const formatTimeToNumber = parseInt(formatTime.replace(":", ""));
-      // we push the time options to the timeOptions array
-      timeOptions.push(
-        <option value={formatTimeToNumber}>kl. {formatTime}</option>
-      );
-    }
-    return timeOptions;
-  }
-
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
+
+
         <label className="input input-bordered flex items-center gap-2 ">
           <input
             type="radio"
@@ -86,7 +61,8 @@ export default function ReservationForm() {
           <label
             className={`input input-bordered flex items-center gap-2 w-96 ${
               errors.reservationDate ? "input-error" : ""
-            }`}>
+            }`}
+          >
             Dato:
             <input
               type="date"
@@ -96,26 +72,16 @@ export default function ReservationForm() {
             />
           </label>
         </div>
-        <div>
-          <label
-            className={`input input-bordered flex items-center gap-2 w-96 ${
-              errors.reservationTime ? "input-error" : ""
-            }`}>
-            Ledige starttider:
-            <select
-              className="grow"
-              // we use the register function to register the input fields
-              {...register("reservationTime", { required: true })}>
-              <option value="default">Vælg starttid</option>
-              {makeTimeOptions()}
-            </select>
-          </label>
-        </div>
+
+        {/* CONTAINER for activity cards */}
+        {}
+
         <div>
           <label
             className={`input input-bordered flex items-center gap-2 w-96 ${
               errors.numberOfParticipants ? "input-error" : ""
-            }`}>
+            }`}
+          >
             Antal deltagere:
             <input
               type="number"
@@ -129,7 +95,8 @@ export default function ReservationForm() {
           <label
             className={`input input-bordered flex items-center gap-2 w-96 ${
               errors.reservedActivities ? "input-error" : ""
-            }`}>
+            }`}
+          >
             Aktivitet:
             <select
               className="grow"
@@ -142,7 +109,8 @@ export default function ReservationForm() {
                 if (activity) {
                   setSelectedActivity(activity);
                 }
-              }}>
+              }}
+            >
               <option value="default">Vælg aktivitet</option>
               {activities.map((activity) => (
                 <option value={activity.id}>{activity.name}</option>
@@ -156,7 +124,8 @@ export default function ReservationForm() {
             <label
               className={`input input-bordered flex items-center gap-2 w-96 ${
                 errors.company?.companyName ? "input-error" : ""
-              }`}>
+              }`}
+            >
               Firmanavn:
               <input
                 type="text"
@@ -169,7 +138,8 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.cvr ? "input-error" : ""
-                }`}>
+                }`}
+              >
                 CVR:
                 <input
                   type="text"
@@ -183,7 +153,8 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactFirstName ? "input-error" : ""
-                }`}>
+                }`}
+              >
                 Kontakt fornavn:
                 <input
                   type="text"
@@ -198,7 +169,8 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactLastName ? "input-error" : ""
-                }`}>
+                }`}
+              >
                 Kontakt efternavn:
                 <input
                   type="text"
@@ -213,7 +185,8 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactEmail ? "input-error" : ""
-                }`}>
+                }`}
+              >
                 Kontakt email:
                 <input
                   type="email"
@@ -235,7 +208,8 @@ export default function ReservationForm() {
             <label
               className={`input input-bordered flex items-center gap-2 w-96 ${
                 errors.guest?.firstName ? "input-error" : ""
-              }`}>
+              }`}
+            >
               Fornavn:
               <input
                 type="text"
@@ -248,7 +222,8 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.guest?.lastName ? "input-error" : ""
-                }`}>
+                }`}
+              >
                 Efternavn:
                 <input
                   type="text"
@@ -262,7 +237,8 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.guest?.email ? "input-error" : ""
-                }`}>
+                }`}
+              >
                 Email:
                 <input
                   type="email"
