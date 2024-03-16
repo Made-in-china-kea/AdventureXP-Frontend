@@ -1,42 +1,13 @@
 import { useForm } from "react-hook-form";
-import {
-  ActivityDto,
-  ReservationActivityDto,
-  ReservationDto,
-} from "../../types";
+import { ActivityDto, ReservationDto } from "../../types";
 import { useEffect, useState } from "react";
 import {
   getActivities,
-  getAvailableTimes,
+  getAvailableSlots,
 } from "../../services/api/reservationAPI";
-
-type availableStartTimes = {
-  [time: string]: number;
-};
-
-const availableStartTimes: availableStartTimes = {
-  "08:00": 800,
-  "09:00": 900,
-  "10:00": 1000,
-  "11:00": 1100,
-  "12:00": 1200,
-  "13:00": 1300,
-  "14:00": 1400,
-  "15:00": 1500,
-  "16:00": 1600,
-  "17:00": 1700,
-  "18:00": 1800,
-  "19:00": 1900,
-  "20:00": 2000,
-  "21:00": 2100,
-  "22:00": 2200,
-};
 
 export default function ReservationForm() {
   const [customerType, setCustomerType] = useState("private");
-  const [availableStartTimes, setAvailableStartTimes] = useState<
-    availableStartTimes[]
-  >([]);
   const [selectedActivity, setSelectedActivity] = useState<ActivityDto>();
   const [activities, setActivities] = useState<ActivityDto[]>([]);
   const [selectedDate, setSelectedDate] = useState<string>("");
@@ -52,27 +23,14 @@ export default function ReservationForm() {
     },
   });
 
-  // set the available times
-  setAvailableStartTimes(availableStartTimes);
-
-  // available times
+  // set the available slots
   useEffect(() => {
-    if (selectedActivity) {
-      const reservations = getAvailableTimes(selectedActivity.id, selectedDate);
-      getAvailableStartTimesFromReservationActivityDto(reservations);
+    if (selectedActivity && selectedDate) {
+      getAvailableSlots(selectedActivity.id, selectedDate).then((data) =>
+        console.log(data)
+      );
     }
-  }, [selectedActivity, availableStartTimes]);
-
-  // function to get the available times from array of reservationActivityDto
-  function getAvailableStartTimesFromReservationActivityDto(
-    reservations: ReservationActivityDto[]
-  ) {
-    const availableStartTimes: availableStartTimes = {};
-    reservations.forEach((reservation) => {
-      availableStartTimes[reservation.startTime] = reservation.reservedSlots;
-    });
-    setAvailableStartTimes(availableStartTimes);
-  }
+  }, [selectedActivity, selectedDate]);
   // set the activities
   useEffect(() => {
     getActivities().then((data) => setActivities(data));
@@ -143,7 +101,7 @@ export default function ReservationForm() {
             className={`input input-bordered flex items-center gap-2 w-96 ${
               errors.reservationTime ? "input-error" : ""
             }`}>
-            Starttid:
+            Ledige starttider:
             <select
               className="grow"
               // we use the register function to register the input fields
@@ -226,7 +184,7 @@ export default function ReservationForm() {
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactFirstName ? "input-error" : ""
                 }`}>
-                Fornavn:
+                Kontakt fornavn:
                 <input
                   type="text"
                   className="grow"
@@ -241,7 +199,7 @@ export default function ReservationForm() {
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactLastName ? "input-error" : ""
                 }`}>
-                Efternavn:
+                Kontakt efternavn:
                 <input
                   type="text"
                   className="grow"
@@ -256,7 +214,7 @@ export default function ReservationForm() {
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactEmail ? "input-error" : ""
                 }`}>
-                Email:
+                Kontakt email:
                 <input
                   type="email"
                   className="grow"

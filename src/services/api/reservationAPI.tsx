@@ -67,12 +67,12 @@ async function getActivities(): Promise<Array<ActivityDto>> {
   return res;
 }
 
-async function getAvailableTimes(
+async function getAvailableSlots(
   activityId: number,
   date: string
 ): Promise<Array<ReservationActivityDto>> {
   const res = await fetch(
-    `${RESERVATION_URL}/availableTimes/${activityId}/${date}`
+    `${RESERVATION_URL}/${date}/${activityId}/availableSlots`
   ).then(handleHttpErrors);
   return res;
 }
@@ -84,7 +84,7 @@ export {
   updateReservation,
   cancelReservation,
   getActivities,
-  getAvailableTimes,
+  getAvailableSlots,
 };
 
 // JUST FOR INSPIRATION AND GUIDELINE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
