@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ActivityDto } from "../../types";
-import { getAvailableSlots } from "../../services/api/reservationAPI";
+import { getAvailableSlots } from "../../services/api/reservationAPI.tsx";
 
 interface ActivityCardProps {
   activity: ActivityDto;

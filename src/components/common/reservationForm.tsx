@@ -1,12 +1,18 @@
 import { useForm } from "react-hook-form";
-import { ActivityDto, ReservationDto } from "../../types";
+import {
+  ActivityDto,
+  ReservationActivityDto,
+  ReservationDto,
+} from "../../types";
 import { useEffect, useState } from "react";
 import { getActivities } from "../../services/api/reservationAPI";
 import ActivityCard from "./activityCard";
 
 export default function ReservationForm() {
   const [customerType, setCustomerType] = useState("private");
-  const [selectedActivity, setSelectedActivity] = useState<ActivityDto>();
+  const [reservedActivities, setReservedActivities] = useState<
+    ReservationActivityDto[]
+  >([]);
   const [selectedStartTime, setSelectedStartTime] = useState<number>();
   const [activities, setActivities] = useState<ActivityDto[]>([]);
   const [selectedDate, setSelectedDate] = useState<string>("");
@@ -62,8 +68,7 @@ export default function ReservationForm() {
           <label
             className={`input input-bordered flex items-center gap-2 w-96 ${
               errors.reservationDate ? "input-error" : ""
-            }`}
-          >
+            }`}>
             Dato:
             <input
               type="date"
@@ -75,23 +80,24 @@ export default function ReservationForm() {
         </div>
 
         {/* CONTAINER for activity cards */}
-        <div className="flex gap-4">
-          {activities.map((activity) => (
-            <ActivityCard
-              onTimeChange={handleTimeChange}
-              key={activity.id}
-              activity={activity}
-              date={selectedDate}
-            />
-          ))}
-        </div>
+        {selectedDate && (
+          <div className="flex gap-4">
+            {activities.map((activity) => (
+              <ActivityCard
+                onTimeChange={handleTimeChange}
+                key={activity.id}
+                activity={activity}
+                date={selectedDate.toString()}
+              />
+            ))}
+          </div>
+        )}
 
         <div>
           <label
             className={`input input-bordered flex items-center gap-2 w-96 ${
               errors.numberOfParticipants ? "input-error" : ""
-            }`}
-          >
+            }`}>
             Antal deltagere:
             <input
               type="number"
@@ -101,12 +107,11 @@ export default function ReservationForm() {
             />
           </label>
         </div>
-        <div>
+        {/* <div>
           <label
             className={`input input-bordered flex items-center gap-2 w-96 ${
               errors.reservedActivities ? "input-error" : ""
-            }`}
-          >
+            }`}>
             Aktivitet:
             <select
               className="grow"
@@ -119,23 +124,21 @@ export default function ReservationForm() {
                 if (activity) {
                   setSelectedActivity(activity);
                 }
-              }}
-            >
+              }}>
               <option value="default">Vælg aktivitet</option>
               {activities.map((activity) => (
                 <option value={activity.id}>{activity.name}</option>
               ))}
             </select>
           </label>
-        </div>
+        </div> */}
         {/* // company fields */}
         {customerType === "business" && (
           <div>
             <label
               className={`input input-bordered flex items-center gap-2 w-96 ${
                 errors.company?.companyName ? "input-error" : ""
-              }`}
-            >
+              }`}>
               Firmanavn:
               <input
                 type="text"
@@ -148,8 +151,7 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.cvr ? "input-error" : ""
-                }`}
-              >
+                }`}>
                 CVR:
                 <input
                   type="text"
@@ -163,8 +165,7 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactFirstName ? "input-error" : ""
-                }`}
-              >
+                }`}>
                 Kontakt fornavn:
                 <input
                   type="text"
@@ -179,8 +180,7 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactLastName ? "input-error" : ""
-                }`}
-              >
+                }`}>
                 Kontakt efternavn:
                 <input
                   type="text"
@@ -195,8 +195,7 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactEmail ? "input-error" : ""
-                }`}
-              >
+                }`}>
                 Kontakt email:
                 <input
                   type="email"
@@ -218,8 +217,7 @@ export default function ReservationForm() {
             <label
               className={`input input-bordered flex items-center gap-2 w-96 ${
                 errors.guest?.firstName ? "input-error" : ""
-              }`}
-            >
+              }`}>
               Fornavn:
               <input
                 type="text"
@@ -232,8 +230,7 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.guest?.lastName ? "input-error" : ""
-                }`}
-              >
+                }`}>
                 Efternavn:
                 <input
                   type="text"
@@ -247,8 +244,7 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.guest?.email ? "input-error" : ""
-                }`}
-              >
+                }`}>
                 Email:
                 <input
                   type="email"
