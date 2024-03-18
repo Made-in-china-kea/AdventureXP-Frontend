@@ -1,5 +1,4 @@
 export type ReservationDto = {
-  customerType: "Private" | "Company";
   id?: number; // Optional for new reservations
   guest?: GuestDto;
   company?: CompanyDto;

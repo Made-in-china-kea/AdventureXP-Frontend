@@ -81,21 +81,20 @@ export default function ReservationForm() {
               }}
             />
           </label>
-        </div>
-
-        <div>
-          <label
-            className={`input input-bordered flex items-center gap-2 w-96 ${
-              errors.numberOfParticipants ? "input-error" : ""
-            }`}>
-            Antal deltagere:
-            <input
-              type="number"
-              className="grow"
-              // we use the register function to register the input fields
-              {...register("numberOfParticipants", { required: true })}
-            />
-          </label>
+          <div>
+            <label
+              className={`input input-bordered flex items-center gap-2 w-96 ${
+                errors.numberOfParticipants ? "input-error" : ""
+              }`}>
+              Antal deltagere:
+              <input
+                type="number"
+                className="grow"
+                // we use the register function to register the input fields
+                {...register("numberOfParticipants", { required: true })}
+              />
+            </label>
+          </div>
         </div>
         {/* // company fields */}
         {customerType === "business" && (
@@ -225,8 +224,7 @@ export default function ReservationForm() {
             </div>
           </div>
         )}
-
-        {/* CONTAINER for activity cards */}
+        {/* CONTAINER for activities */}
         {selectedDate && (
           <div className="flex gap-4">
             {activities.map((activity) => (
