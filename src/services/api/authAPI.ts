@@ -1,5 +1,5 @@
-import { API_URL } from "../settings";
-import { makeOptions, handleHttpErrors } from "./fetchUtils";
+import { API_URL } from "../../settings";
+import { makeOptions, handleHttpErrors } from "../fetchUtils";
 const LOGIN_URL = API_URL + "/api/auth/login";
 
 export type User = { username: string; password: string; roles?: string[] };

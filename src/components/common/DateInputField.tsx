@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface DateInputProps {
   value: string;
@@ -20,7 +20,7 @@ const DateInputField = React.forwardRef<HTMLInputElement, DateInputProps>(
     const minDate = `${year}-${month}-${day}`;
 
     // Handle the change of the date input field
-    const handleDateChange = (event: { target: { value: string; }; }) => {
+    const handleDateChange = (event: { target: { value: string } }) => {
       // Directly pass the value to the onChange prop
       onChange(event.target.value);
     };
