@@ -48,21 +48,20 @@ export default function ActivityCard({
 
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
-      <figure>
-        <img
-          src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-          alt="Shoes"
-        />
-      </figure>
       <div className="card-body">
         <h2 className="card-title">
-          Shoes!
+          Activity {activity.id} - {activity.name}
           <div className="badge badge-secondary">NEW</div>
         </h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <p></p>
         <div className="card-actions justify-end">
-          <div className="badge badge-outline">Fashion</div>
-          <div className="badge badge-outline">Products</div>
+          <div className="badge badge-outline">
+            Aldersbegræsning: {activity.ageLimit}
+          </div>
+          <div className="badge badge-outline">Pris: {activity.price} kr</div>
+          <div className="badge badge-outline">
+            Tid: {activity.timeSlot / 100} timer
+          </div>
         </div>
       </div>
 
@@ -75,8 +74,7 @@ export default function ActivityCard({
               type="text"
               name="selectedTime"
               value={option.value}
-              onClick={handleTimeChange}
-            >
+              onClick={handleTimeChange}>
               {option.label}
             </input>
           ))}

@@ -79,20 +79,6 @@ export default function ReservationForm() {
           </label>
         </div>
 
-        {/* CONTAINER for activity cards */}
-        {selectedDate && (
-          <div className="flex gap-4">
-            {activities.map((activity) => (
-              <ActivityCard
-                onTimeChange={handleTimeChange}
-                key={activity.id}
-                activity={activity}
-                date={selectedDate.toString()}
-              />
-            ))}
-          </div>
-        )}
-
         <div>
           <label
             className={`input input-bordered flex items-center gap-2 w-96 ${
@@ -258,6 +244,20 @@ export default function ReservationForm() {
                 />
               </label>
             </div>
+          </div>
+        )}
+
+        {/* CONTAINER for activity cards */}
+        {selectedDate && (
+          <div className="flex gap-4">
+            {activities.map((activity) => (
+              <ActivityCard
+                onTimeChange={handleTimeChange}
+                key={activity.id}
+                activity={activity}
+                date={selectedDate.toString()}
+              />
+            ))}
           </div>
         )}
 

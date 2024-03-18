@@ -4,7 +4,6 @@ import { ActivityDto, ReservationDto } from "../../types";
 const RESERVATION_URL = API_URL + "/api/reservation";
 const ACTIVITY_URL = API_URL + "/api/activities";
 
-
 let reservations: Array<ReservationDto> = [];
 // booleans to check if the lists are updated
 let reservationListUpdated: boolean = false;
@@ -60,7 +59,7 @@ async function cancelReservation(id: number): Promise<ReservationDto> {
 
 async function getActivities(): Promise<Array<ActivityDto>> {
   const options = makeOptions("GET", null);
-  const res = await fetch(ACTIVITY_URL + "/", options).then(handleHttpErrors);
+  const res = await fetch(ACTIVITY_URL + "", options).then(handleHttpErrors);
   return res;
 }
 
