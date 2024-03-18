@@ -1,12 +1,12 @@
 export type ReservationDto = {
-  id?: number; // Optional for new reservations
-  guest?: GuestDto;
-  company?: CompanyDto;
+  id?: number | null; // Optional for new reservations
+  guest?: GuestDto | null;
+  company?: CompanyDto | null;
   reservationDate: string; // Date string in ISO format
   reservationTime: number;
   numberOfParticipants: number;
   created: string; // Date string in ISO format
-  edited?: string; // Optional for existing reservations
+  edited?: string | null; // Optional for existing reservations
   reservedActivities: ReservationActivityDto[];
   isCancelled: boolean;
 };

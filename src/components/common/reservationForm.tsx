@@ -34,6 +34,18 @@ export default function ReservationForm() {
 
   const onSubmit = (data: ReservationDto) => {
     console.log(data);
+    // create ReservationDto
+    const reservation: ReservationDto = {
+      ...data,
+      reservedActivities: reservedActivities,
+    };
+    // set guest or company to null if not needed
+    if (customerType === "private") {
+      reservation.company = null;
+    } else {
+      reservation.guest = null;
+    }
+    console.log(reservation);
   };
 
   const handleActivityReservation = (
