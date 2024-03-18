@@ -30,11 +30,10 @@ export type CompanyDto = {
 };
 
 export type ReservationActivityDto = {
-  reservation?: ReservationDto; // Optional reference to Reservation
-  activity?: ActivityDto; // Reference to Activity (assuming separate ActivityDto)
+  reservationId?: number; // Optional reference to Reservation
+  activity: ActivityDto; // Reference to Activity (assuming separate ActivityDto)
   startTime: number;
   reservedSlots: number;
-  endTime: number;
   created: string; // Date string in ISO format
 };
 

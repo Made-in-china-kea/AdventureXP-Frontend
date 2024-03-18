@@ -1,24 +1,25 @@
 import { useEffect, useState } from "react";
-import { ActivityDto } from "../../types";
+import { ActivityDto, ReservationActivityDto } from "../../types";
 import { getAvailableSlots } from "../../services/api/reservationAPI.tsx";
 
 interface ActivityCardProps {
   activity: ActivityDto;
   date: string;
-  onTimeChange: (time: number) => void;
+  onReserveActivity: (reservationActivity: ReservationActivityDto) => void;
 }
 
 export default function ActivityCard({
   activity,
   date,
-  onTimeChange,
+  onReserveActivity,
 }: ActivityCardProps) {
-  const [availableTimes, setAvailableTimes] = useState<number[]>([]);
+  const [availableSlots, setAvailableSlots] = useState<number[]>([]);
+
   // set the available slots
   useEffect(() => {
     if (date) {
       getAvailableSlots(activity.id, date).then((data) =>
-        setAvailableTimes(data)
+        setAvailableSlots(data)
       );
     }
   }, [activity, date]);
@@ -29,14 +30,21 @@ export default function ActivityCard({
   }
 
   const handleTimeChange = (event) => {
-    console.log(event.target.value);
-    onTimeChange(event.target.value); // Call parent's callback with selected time
+    // create ReservationActivityDto
+    const reservationActivity: ReservationActivityDto = {
+      activity: activity,
+      startTime: event.target.value,
+      reservedSlots: 1,
+      created: new Date().toISOString(),
+    };
+
+    onReserveActivity(reservationActivity); // Call parent's callback with reservationActivity
   };
 
   function makeTimeOptions(): TimeOption[] {
     const timeOptions: TimeOption[] = [];
 
-    for (const time of availableTimes) {
+    for (const time of availableSlots) {
       const formattedTime = time.toString().padStart(4, "0"); // Ensure 4-digit format
       const displayedTime = `${formattedTime
         .toString()
@@ -57,7 +65,7 @@ export default function ActivityCard({
           </div>
           <div className="badge badge-outline">Pris: {activity.price} kr</div>
           <div className="badge badge-outline">
-            Tid: {activity.timeSlot / 100} timer
+            Varighed: {activity.timeSlot / 100} time
           </div>
         </div>
       </div>
@@ -67,13 +75,9 @@ export default function ActivityCard({
         <label className={`input input-bordered flex items-center gap-2 w-96 `}>
           Ledige starttider:
           {makeTimeOptions().map((option) => (
-            <input
-              type="text"
-              name="selectedTime"
-              value={option.value}
-              onClick={handleTimeChange}>
+            <button value={option.value} onClick={handleTimeChange}>
               {option.label}
-            </input>
+            </button>
           ))}
         </label>
       </div>

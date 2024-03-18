@@ -1,7 +1,7 @@
 import { API_URL } from "../../settings";
 import { makeOptions, handleHttpErrors } from "../fetchUtils";
 import { ActivityDto, ReservationDto } from "../../types";
-const RESERVATION_URL = API_URL + "/api/reservation";
+const RESERVATION_URL = API_URL + "/api/reservations";
 const ACTIVITY_URL = API_URL + "/api/activities";
 
 let reservations: Array<ReservationDto> = [];

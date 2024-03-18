@@ -13,7 +13,6 @@ export default function ReservationForm() {
   const [reservedActivities, setReservedActivities] = useState<
     ReservationActivityDto[]
   >([]);
-  const [selectedStartTime, setSelectedStartTime] = useState<number>();
   const [activities, setActivities] = useState<ActivityDto[]>([]);
   const [selectedDate, setSelectedDate] = useState<string>("");
 
@@ -37,8 +36,10 @@ export default function ReservationForm() {
     console.log(data);
   };
 
-  const handleTimeChange = (newTime: number) => {
-    setSelectedStartTime(newTime); // Update parent state with selected time
+  const handleActivityReservation = (
+    reservationActivity: ReservationActivityDto
+  ) => {
+    setReservedActivities([...reservedActivities, reservationActivity]);
   };
 
   return (
@@ -74,7 +75,10 @@ export default function ReservationForm() {
               type="date"
               className="grow"
               // we use the register function to register the input fields
-              onChange={(e) => setSelectedDate(e.target.value)}
+              onChange={(e) => {
+                setSelectedDate(e.target.value);
+                console.log(e.target.value);
+              }}
             />
           </label>
         </div>
@@ -93,31 +97,6 @@ export default function ReservationForm() {
             />
           </label>
         </div>
-        {/* <div>
-          <label
-            className={`input input-bordered flex items-center gap-2 w-96 ${
-              errors.reservedActivities ? "input-error" : ""
-            }`}>
-            Aktivitet:
-            <select
-              className="grow"
-              // we use the register function to register the input fields
-              {...register("reservedActivities", { required: true })}
-              onChange={(e) => {
-                const activity = activities.find(
-                  (a) => a.id === parseInt(e.target.value)
-                );
-                if (activity) {
-                  setSelectedActivity(activity);
-                }
-              }}>
-              <option value="default">Vælg aktivitet</option>
-              {activities.map((activity) => (
-                <option value={activity.id}>{activity.name}</option>
-              ))}
-            </select>
-          </label>
-        </div> */}
         {/* // company fields */}
         {customerType === "business" && (
           <div>
@@ -152,7 +131,7 @@ export default function ReservationForm() {
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactFirstName ? "input-error" : ""
                 }`}>
-                Kontakt fornavn:
+                Fornavn på kontaktperson:
                 <input
                   type="text"
                   className="grow"
@@ -167,7 +146,7 @@ export default function ReservationForm() {
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactLastName ? "input-error" : ""
                 }`}>
-                Kontakt efternavn:
+                Efternavn på kontaktperson:
                 <input
                   type="text"
                   className="grow"
@@ -182,7 +161,7 @@ export default function ReservationForm() {
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactEmail ? "input-error" : ""
                 }`}>
-                Kontakt email:
+                Email til kontaktperson:
                 <input
                   type="email"
                   className="grow"
@@ -252,10 +231,10 @@ export default function ReservationForm() {
           <div className="flex gap-4">
             {activities.map((activity) => (
               <ActivityCard
-                onTimeChange={handleTimeChange}
+                onReserveActivity={handleActivityReservation}
                 key={activity.id}
                 activity={activity}
-                date={selectedDate.toString()}
+                date={selectedDate}
               />
             ))}
           </div>
