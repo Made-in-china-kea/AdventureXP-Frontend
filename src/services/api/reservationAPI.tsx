@@ -67,8 +67,9 @@ async function getAvailableSlots(
   activityId: number,
   date: string
 ): Promise<Array<number>> {
+  const params = date ? `?date=${date}` : "";
   const res = await fetch(
-    `${RESERVATION_URL}/${date}/${activityId}/availableSlots`
+    `${RESERVATION_URL}/${activityId}/availableslots/${params}`
   ).then(handleHttpErrors);
   return res;
 }
