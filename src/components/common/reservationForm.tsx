@@ -1,14 +1,13 @@
 import { useForm } from "react-hook-form";
 import { ActivityDto, ReservationDto } from "../../types";
 import { useEffect, useState } from "react";
-import {
-  getActivities,
-  getAvailableSlots,
-} from "../../services/api/reservationAPI";
+import { getActivities } from "../../services/api/reservationAPI";
+import ActivityCard from "./activityCard";
 
 export default function ReservationForm() {
   const [customerType, setCustomerType] = useState("private");
   const [selectedActivity, setSelectedActivity] = useState<ActivityDto>();
+  const [selectedStartTime, setSelectedStartTime] = useState<number>();
   const [activities, setActivities] = useState<ActivityDto[]>([]);
   const [selectedDate, setSelectedDate] = useState<string>("");
 
@@ -32,11 +31,13 @@ export default function ReservationForm() {
     console.log(data);
   };
 
+  const handleTimeChange = (newTime: number) => {
+    setSelectedStartTime(newTime); // Update parent state with selected time
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-
-
         <label className="input input-bordered flex items-center gap-2 ">
           <input
             type="radio"
@@ -56,7 +57,7 @@ export default function ReservationForm() {
           />
           Erhverv
         </label>
-        {/* // default fields */}
+        {/* default fields */}
         <div>
           <label
             className={`input input-bordered flex items-center gap-2 w-96 ${
@@ -74,7 +75,16 @@ export default function ReservationForm() {
         </div>
 
         {/* CONTAINER for activity cards */}
-        {}
+        <div className="flex gap-4">
+          {activities.map((activity) => (
+            <ActivityCard
+              onTimeChange={handleTimeChange}
+              key={activity.id}
+              activity={activity}
+              date={selectedDate}
+            />
+          ))}
+        </div>
 
         <div>
           <label
@@ -258,6 +268,9 @@ export default function ReservationForm() {
         <button type="submit" className="button-27">
           Send Booking
         </button>
+        {errors.reservationTime && (
+          <span>{errors.reservationTime.message}</span>
+        )}
       </form>
     </div>
   );
