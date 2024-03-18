@@ -49,10 +49,7 @@ export default function ActivityCard({
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <div className="card-body">
-        <h2 className="card-title">
-          Activity {activity.id} - {activity.name}
-          <div className="badge badge-secondary">NEW</div>
-        </h2>
+        <h2 className="card-title">{activity.name.toLocaleUpperCase()}</h2>
         <p></p>
         <div className="card-actions justify-end">
           <div className="badge badge-outline">
