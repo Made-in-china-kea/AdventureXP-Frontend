@@ -429,7 +429,7 @@ export default function ReservationForm() {
             type="submit"
             className="btn btn-primary h-20 w-60 m-11 text-2xl"
           >
-            Send Booking
+            Send reservation
           </button>
         </div>
         {errors.reservationTime && (
