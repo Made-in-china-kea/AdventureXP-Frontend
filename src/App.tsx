@@ -8,7 +8,10 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<h1>This is the homepage</h1>} />
+        <Route
+          path="/"
+          element={<h1 className="bg-sky-500">This is the homepage</h1>}
+        />
 
         <Route path="/reservation" element={<ReservationForm />} />
 
