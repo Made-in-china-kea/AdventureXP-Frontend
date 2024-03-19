@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './components/Button.tsx';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'; // Use this if you prefer NavLink
 import './assets/styles/Navbar.css';
+import AuthStatus from "./security/AuthStatus";
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -43,109 +44,76 @@ function Navbar() {
     };
   }, []);
 
-import { NavLink } from "react-router-dom";
-import AuthStatus from "./security/AuthStatus";
-// import { useAuth } from "./security/AuthProvider";
-
-export default function NavHeader() {
-  // const auth = useAuth();
   return (
     <>
       <nav className='navbar'>
         <div className='navbar-container'>
-          <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
+        
+          <NavLink to='/' className='navbar-logo' onClick={closeMobileMenu}>
             AdventureXP
             <i className='fab fa-typo3' />
-          </Link>
+          </NavLink>
+          <div className='menu-icon' onClick={handleClick}>
+            <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
+          </div>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
             {/* Home link on the left */}
             <li className='nav-item'>
-              <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+              <NavLink to='/' className='nav-links' onClick={closeMobileMenu}>
                 Home
-              </Link>
+              </NavLink>
             </li>
-
-            {/* Activities dropdown in the middle */}
-            <li className='nav-item' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-              <Link to='#' className='nav-links' onClick={(e) => e.preventDefault()}>
+                     {/* Activities dropdown in the middle */}
+                     <li className='nav-item' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+              <NavLink to='#' className='nav-links' onClick={(e) => e.preventDefault()}>
                 Activities <i className='fas fa-caret-down' />
-              </Link>
+              </NavLink>
               {dropdown && (
                 <ul className='dropdown-menu'>
                   <li className='dropdown-item'>
-                    <Link to='/paintball' className='nav-links' onClick={closeMobileMenu}>
+                    <NavLink to='/paintball' className='nav-links' onClick={closeMobileMenu}>
                       Paintball
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className='dropdown-item'>
-                    <Link to='/biking' className='nav-links' onClick={closeMobileMenu}>
+                    <NavLink to='/biking' className='nav-links' onClick={closeMobileMenu}>
                       Biking
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className='dropdown-item'>
-                    <Link to='/gokart' className='nav-links' onClick={closeMobileMenu}>
+                    <NavLink to='/gokart' className='nav-links' onClick={closeMobileMenu}>
                       Go-kart
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className='dropdown-item'>
-                    <Link to='/sumo' className='nav-links' onClick={closeMobileMenu}>
+                    <NavLink to='/sumo' className='nav-links' onClick={closeMobileMenu}>
                       Sumo
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className='dropdown-item'>
-                    <Link to='/minigolf' className='nav-links' onClick={closeMobileMenu}>
+                    <NavLink to='/minigolf' className='nav-links' onClick={closeMobileMenu}>
                       Mini golf
-                    </Link>
+                    </NavLink>
                   </li>
                 </ul>
               )}
             </li>
-
-            {/* Spacing element */}
-            <li className='nav-item grow'>
-              {/* This li element is used to push the login to the right */}
-            </li>
-
+            {/* Spacing element to push login to the right */}
+            <li className='nav-item grow'></li>
             {/* Login link on the right */}
             <li className='nav-item'>
-              <Link to='/login' className='nav-links' onClick={closeMobileMenu}>
-                Login
-              </Link>
+            
+          
+          <AuthStatus />
+        
             </li>
           </ul>
           {button && <Button buttonStyle='btn--outline'>Book here!</Button>}
         </div>
-        <div className='menu-icon' onClick={handleClick}>
-          <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
-        </div>
+      </nav>
+      <nav>
       </nav>
     </>
-    <nav>
-      <ul>
-        <li>
-          <NavLink to="/">Home</NavLink>
-        </li>
-        <li>
-          <NavLink to="/reservation">Reservation</NavLink>
-        </li>
-
-        {/* {auth.isLoggedInAs(["USER", "ADMIN"]) && (
-          <li>
-            <NavLink to="/recipes/add">Add</NavLink>
-          </li>
-        )}
-        {auth.isLoggedInAs(["ADMIN"]) && (
-          <li>
-            <NavLink to="/categories/add">Add Category</NavLink>
-          </li>
-        )} */}
-
-        <li>
-          <NavLink to="/contact">Contact</NavLink>
-        </li>
-        <AuthStatus />
-      </ul>
-    </nav>
   );
 }
 
