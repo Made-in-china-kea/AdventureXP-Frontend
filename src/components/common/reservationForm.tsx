@@ -67,6 +67,7 @@ export default function ReservationForm() {
   return (
     <div className="flex justify-center items-center w-screen">
       <form onSubmit={handleSubmit(onSubmit)}>
+        {/* radio buttons for customer type */}
         <div className="flex justify-center items-center">
           <label className="flex justify-center items-center input input-bordered gap-2 w-custom">
             {/* ----------------radio button for private---------------- */}
@@ -114,7 +115,8 @@ export default function ReservationForm() {
           </label>
         </div>
 
-        {/* default input fields */}
+        {/* --------------------- default input fields --------------------- */}
+        {/* Reservation date input field */}
         <div className="mx-96">
           <div className="flex justify-center items-center mt-10">
             <label
@@ -163,7 +165,8 @@ export default function ReservationForm() {
             </label>
           </div>
         </div>
-        {/* // company fields */}
+
+        {/* company fields */}
         {customerType === "business" && (
           <div>
             <label
@@ -247,6 +250,7 @@ export default function ReservationForm() {
             </div>
           </div>
         )}
+
         {/* // private fields */}
         {customerType === "private" && (
           <div className="mx-72 mt-8">
@@ -336,6 +340,7 @@ export default function ReservationForm() {
             </div>
           </div>
         )}
+
         {/* CONTAINER for activities */}
         <div>
           {selectedDate && (
@@ -352,9 +357,11 @@ export default function ReservationForm() {
           )}
         </div>
 
-        <button type="submit" className="button-27">
-          Send Booking
-        </button>
+        <div className="flex justify-center items-center mt-5">
+          <button type="submit" className="btn btn-primary">
+            Send Booking
+          </button>
+        </div>
         {errors.reservationTime && (
           <span>{errors.reservationTime.message}</span>
         )}
