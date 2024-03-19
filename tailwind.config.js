@@ -5,7 +5,8 @@ export default {
   theme: {
     extend: {
       width: {
-        custom: "450px",
+        custom450: "450px",
+        custom500: "500px",
       },
     },
   },

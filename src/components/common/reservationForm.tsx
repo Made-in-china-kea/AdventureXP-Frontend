@@ -69,7 +69,7 @@ export default function ReservationForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* radio buttons for customer type */}
         <div className="flex justify-center items-center">
-          <label className="flex justify-center items-center input input-bordered gap-2 w-custom">
+          <label className="flex justify-center items-center input input-bordered gap-2 w-custom450">
             {/* ----------------radio button for private---------------- */}
             <input
               type="radio"
@@ -120,7 +120,7 @@ export default function ReservationForm() {
         <div className="mx-96">
           <div className="flex justify-center items-center mt-10">
             <label
-              className={`input input-bordered flex justify-center items-center gap-2 w-custom ${
+              className={`input input-bordered flex justify-center items-center gap-2 w-custom450 ${
                 errors.reservationDate ? "input-error" : ""
               }`}
             >
@@ -140,7 +140,7 @@ export default function ReservationForm() {
 
           <div className="flex justify-center items-center mt-4">
             <label
-              className={`input input-bordered flex items-center gap-2 w-custom ${
+              className={`input input-bordered flex items-center gap-2 w-custom450 ${
                 errors.numberOfParticipants ? "input-error" : ""
               }`}
             >
@@ -169,22 +169,42 @@ export default function ReservationForm() {
         {/* company fields */}
         {customerType === "business" && (
           <div>
-            <label
-              className={`input input-bordered flex items-center gap-2 w-custom ${
-                errors.company?.companyName ? "input-error" : ""
-              }`}
-            >
-              Firmanavn:
-              <input
-                type="text"
-                className="grow"
-                // we use the register function to register the input fields
-                {...register("company.companyName", { required: true })}
-              />
-            </label>
-            <div>
+            <h2 className="flex justify-center mt-8 mb-4 text-2xl">
+              Kontakt informationer
+            </h2>
+
+            {/* Input for Company Name*/}
+            <div className="flex justify-center items-center ">
               <label
-                className={`input input-bordered flex items-center gap-2 w-custom ${
+                className={`input input-bordered flex items-center gap-2 w-custom450 ${
+                  errors.company?.companyName ? "input-error" : ""
+                }`}
+              >
+                Firmanavn:
+                <input
+                  type="text"
+                  className="grow"
+                  // we use the register function to register the input fields
+                  {...register("company.companyName", { required: true })}
+                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-building-fill-check"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514" />
+                  <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7.256A4.5 4.5 0 0 0 12.5 8a4.5 4.5 0 0 0-3.59 1.787A.5.5 0 0 0 9 9.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .39-.187A4.5 4.5 0 0 0 8.027 12H6.5a.5.5 0 0 0-.5.5V16H3a1 1 0 0 1-1-1zm2 1.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m3 0v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z" />
+                </svg>
+              </label>
+            </div>
+
+            {/* Input for Company CVR */}
+            <div className="flex justify-center items-center mt-4">
+              <label
+                className={`input input-bordered flex items-center gap-2 w-custom450 ${
                   errors.company?.cvr ? "input-error" : ""
                 }`}
               >
@@ -195,11 +215,23 @@ export default function ReservationForm() {
                   // we use the register function to register the input fields
                   {...register("company.cvr", { required: true })}
                 />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-123"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M2.873 11.297V4.142H1.699L0 5.379v1.137l1.64-1.18h.06v5.961zm3.213-5.09v-.063c0-.618.44-1.169 1.196-1.169.676 0 1.174.44 1.174 1.106 0 .624-.42 1.101-.807 1.526L4.99 10.553v.744h4.78v-.99H6.643v-.069L8.41 8.252c.65-.724 1.237-1.332 1.237-2.27C9.646 4.849 8.723 4 7.308 4c-1.573 0-2.36 1.064-2.36 2.15v.057zm6.559 1.883h.786c.823 0 1.374.481 1.379 1.179.01.707-.55 1.216-1.421 1.21-.77-.005-1.326-.419-1.379-.953h-1.095c.042 1.053.938 1.918 2.464 1.918 1.478 0 2.642-.839 2.62-2.144-.02-1.143-.922-1.651-1.551-1.714v-.063c.535-.09 1.347-.66 1.326-1.678-.026-1.053-.933-1.855-2.359-1.845-1.5.005-2.317.88-2.348 1.898h1.116c.032-.498.498-.944 1.206-.944.703 0 1.206.435 1.206 1.07.005.64-.504 1.106-1.2 1.106h-.75z" />
+                </svg>
               </label>
             </div>
-            <div>
+
+            {/* Input for Contact Person first name */}
+            <div className="flex justify-center items-center mt-4 ">
               <label
-                className={`input input-bordered flex items-center gap-2 w-custom ${
+                className={`input input-bordered flex items-center gap-2 w-custom450 ${
                   errors.company?.contactFirstName ? "input-error" : ""
                 }`}
               >
@@ -210,12 +242,23 @@ export default function ReservationForm() {
                   // we use the register function to register the input fields
                   {...register("company.contactFirstName", { required: true })}
                 />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-person-vcard-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm9 1.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5M9 8a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4A.5.5 0 0 0 9 8m1 2.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5m-1 2C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 0 2 13h6.96q.04-.245.04-.5M7 6a2 2 0 1 0-4 0 2 2 0 0 0 4 0" />
+                </svg>
               </label>
             </div>
 
-            <div>
+            {/* Input for Contact Person last name */}
+            <div className="flex justify-center items-center mt-4">
               <label
-                className={`input input-bordered flex items-center gap-2 w-custom ${
+                className={`input input-bordered flex items-center gap-2 w-custom450 ${
                   errors.company?.contactLastName ? "input-error" : ""
                 }`}
               >
@@ -226,12 +269,23 @@ export default function ReservationForm() {
                   // we use the register function to register the input fields
                   {...register("company.contactLastName", { required: true })}
                 />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-person-vcard-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm9 1.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5M9 8a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4A.5.5 0 0 0 9 8m1 2.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5m-1 2C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 0 2 13h6.96q.04-.245.04-.5M7 6a2 2 0 1 0-4 0 2 2 0 0 0 4 0" />
+                </svg>
               </label>
             </div>
 
-            <div>
+            {/* Input for Contact Person email */}
+            <div className="flex justify-center items-center mt-4">
               <label
-                className={`input input-bordered flex items-center gap-2 w-custom ${
+                className={`input input-bordered flex items-center gap-2 w-custom450 ${
                   errors.company?.contactEmail ? "input-error" : ""
                 }`}
               >
@@ -246,6 +300,16 @@ export default function ReservationForm() {
                     pattern: /^\S+@\S+$/i,
                   })}
                 />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-envelope"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z" />{" "}
+                </svg>
               </label>
             </div>
           </div>
@@ -257,9 +321,10 @@ export default function ReservationForm() {
             <h2 className="flex justify-center mb-2 text-2xl">
               Kontakt informationer
             </h2>
+            {/* Input for first name */}
             <div className="flex justify-center items-center">
               <label
-                className={`input input-bordered flex items-center gap-2 w-custom mt-4 ${
+                className={`input input-bordered flex items-center gap-2 w-custom450 mt-4 ${
                   errors.guest?.firstName ? "input-error" : ""
                 }`}
               >
@@ -283,9 +348,10 @@ export default function ReservationForm() {
               </label>
             </div>
 
+            {/* Input for last name */}
             <div className="flex justify-center items-center">
               <label
-                className={`input input-bordered flex items-center gap-2 w-custom mt-4 ${
+                className={`input input-bordered flex items-center gap-2 w-custom450 mt-4 ${
                   errors.guest?.lastName ? "input-error" : ""
                 }`}
               >
@@ -309,9 +375,10 @@ export default function ReservationForm() {
               </label>
             </div>
 
+            {/* Input for email */}
             <div className="flex justify-center items-center">
               <label
-                className={`input input-bordered flex items-center gap-2 w-custom mt-4 ${
+                className={`input input-bordered flex items-center gap-2 w-custom450 mt-4 ${
                   errors.guest?.email ? "input-error" : ""
                 }`}
               >
