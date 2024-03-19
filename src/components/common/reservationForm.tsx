@@ -30,6 +30,7 @@ export default function ReservationForm() {
   // set the activities
   useEffect(() => {
     getActivities().then((data) => setActivities(data));
+    getTodayDate();
   }, []);
 
   const onSubmit = (data: ReservationDto) => {
@@ -46,6 +47,13 @@ export default function ReservationForm() {
       reservation.guest = null;
     }
     console.log(reservation);
+  };
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, "0");
+    const day = today.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
   };
 
   const handleActivityReservation = (
@@ -81,11 +89,13 @@ export default function ReservationForm() {
           <label
             className={`input input-bordered flex items-center gap-2 w-96 ${
               errors.reservationDate ? "input-error" : ""
-            }`}>
+            }`}
+          >
             Dato:
             <input
               type="date"
               className="grow"
+              min={getTodayDate()}
               // we use the register function to register the input fields
               onChange={(e) => {
                 setSelectedDate(e.target.value);
@@ -97,7 +107,8 @@ export default function ReservationForm() {
             <label
               className={`input input-bordered flex items-center gap-2 w-96 ${
                 errors.numberOfParticipants ? "input-error" : ""
-              }`}>
+              }`}
+            >
               Antal deltagere:
               <input
                 type="number"
@@ -114,7 +125,8 @@ export default function ReservationForm() {
             <label
               className={`input input-bordered flex items-center gap-2 w-96 ${
                 errors.company?.companyName ? "input-error" : ""
-              }`}>
+              }`}
+            >
               Firmanavn:
               <input
                 type="text"
@@ -127,7 +139,8 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.cvr ? "input-error" : ""
-                }`}>
+                }`}
+              >
                 CVR:
                 <input
                   type="text"
@@ -141,7 +154,8 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactFirstName ? "input-error" : ""
-                }`}>
+                }`}
+              >
                 Fornavn på kontaktperson:
                 <input
                   type="text"
@@ -156,7 +170,8 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactLastName ? "input-error" : ""
-                }`}>
+                }`}
+              >
                 Efternavn på kontaktperson:
                 <input
                   type="text"
@@ -171,7 +186,8 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.company?.contactEmail ? "input-error" : ""
-                }`}>
+                }`}
+              >
                 Email til kontaktperson:
                 <input
                   type="email"
@@ -193,7 +209,8 @@ export default function ReservationForm() {
             <label
               className={`input input-bordered flex items-center gap-2 w-96 ${
                 errors.guest?.firstName ? "input-error" : ""
-              }`}>
+              }`}
+            >
               Fornavn:
               <input
                 type="text"
@@ -206,7 +223,8 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.guest?.lastName ? "input-error" : ""
-                }`}>
+                }`}
+              >
                 Efternavn:
                 <input
                   type="text"
@@ -220,7 +238,8 @@ export default function ReservationForm() {
               <label
                 className={`input input-bordered flex items-center gap-2 w-96 ${
                   errors.guest?.email ? "input-error" : ""
-                }`}>
+                }`}
+              >
                 Email:
                 <input
                   type="email"
