@@ -424,8 +424,11 @@ export default function ReservationForm() {
           )}
         </div>
 
-        <div className="flex justify-center items-center mt-5">
-          <button type="submit" className="btn btn-primary">
+        <div className="flex justify-center items-center">
+          <button
+            type="submit"
+            className="btn btn-primary h-20 w-60 m-11 text-2xl"
+          >
             Send Booking
           </button>
         </div>
