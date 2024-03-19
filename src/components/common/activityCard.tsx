@@ -29,7 +29,7 @@ export default function ActivityCard({
     label: string;
   }
   // activity card image
-  const image = `../public/Images/${activity.name}.jpg`;
+  const image = `../public/Images/activities/${activity.name}.jpg`;
 
   const handleTimeChange = (event) => {
     // create ReservationActivityDto
