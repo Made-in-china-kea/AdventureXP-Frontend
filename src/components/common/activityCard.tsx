@@ -28,6 +28,8 @@ export default function ActivityCard({
     value: number;
     label: string;
   }
+  // activity card image
+  const image = `../public/Images/${activity.name}.jpg`;
 
   const handleTimeChange = (event) => {
     // create ReservationActivityDto
@@ -56,12 +58,14 @@ export default function ActivityCard({
 
   return (
     <div className="card w-96 bg-base-100 shadow-xl mt-10">
-      <figure>
-        <img
-          src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-          alt="Shoes"
-        />
-      </figure>
+      {(image && (
+        <figure>
+          <img src={image} alt="Shoes" />
+        </figure>
+      )) || ( // If no image, display a placeholder
+        <div className="placeholder w-96 h-48 bg-gray-400"></div>
+      )}
+
       <div className="card-body">
         <h2 className="card-title">{activity.name.toLocaleUpperCase()}</h2>
         <p></p>
