@@ -64,13 +64,13 @@ async function getActivities(): Promise<Array<ActivityDto>> {
 }
 
 async function getAvailableSlots(
-  activityId: number,
+  id: number,
   date: string
 ): Promise<Array<number>> {
   const params = date ? `?date=${date}` : "";
-  const res = await fetch(
-    `${RESERVATION_URL}/${activityId}/availableslots/${params}`
-  ).then(handleHttpErrors);
+  const res = await fetch(`${ACTIVITY_URL}/${id}/availableslots${params}`).then(
+    handleHttpErrors
+  );
   return res;
 }
 
