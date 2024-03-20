@@ -5,7 +5,10 @@ import {
   ReservationDto,
 } from "../../types";
 import { useEffect, useState } from "react";
-import { getActivities } from "../../services/api/reservationAPI";
+import {
+  createReservation,
+  getActivities,
+} from "../../services/api/reservationAPI";
 import ActivityCard from "./activityCard";
 
 export default function ReservationForm() {
@@ -39,6 +42,7 @@ export default function ReservationForm() {
     const reservation: ReservationDto = {
       ...data,
       reservedActivities: reservedActivities,
+      reservationDate: selectedDate,
     };
     // set guest or company to null if not needed
     if (customerType === "private") {
@@ -46,6 +50,7 @@ export default function ReservationForm() {
     } else {
       reservation.guest = null;
     }
+    createReservation(reservation).then((res) => console.log(res));
     console.log(reservation);
   };
 
@@ -62,8 +67,6 @@ export default function ReservationForm() {
     reservationActivity: ReservationActivityDto
   ) => {
     setReservedActivities([...reservedActivities, reservationActivity]);
-
-    console.log(reservedActivities);
   };
 
   return (
