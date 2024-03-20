@@ -132,6 +132,7 @@ export default function ActivityCard({
                     (document.getElementById("slots") as HTMLInputElement).value
                   ),
                 });
+                reserveTimeSlot();
                 setIsModalOpen(false);
               }}>
               Reserver
