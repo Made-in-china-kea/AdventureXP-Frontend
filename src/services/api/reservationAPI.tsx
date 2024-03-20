@@ -1,77 +1,77 @@
-import { API_URL } from "../../settings";
-import { makeOptions, handleHttpErrors } from "../fetchUtils";
-import { ActivityDto, ReservationDto } from "../../types";
-const RESERVATION_URL = API_URL + "/api/reservations";
-const ACTIVITY_URL = API_URL + "/api/activities";
+import { API_URL } from '../../settings'
+import { makeOptions, handleHttpErrors } from '../fetchUtils'
+import { ActivityDto, ReservationDto } from '../../types'
+const RESERVATION_URL = API_URL + '/api/reservations'
+const ACTIVITY_URL = API_URL + '/api/activities'
 
-let reservations: Array<ReservationDto> = [];
+let reservations: Array<ReservationDto> = []
 // booleans to check if the lists are updated
-let reservationListUpdated: boolean = false;
+let reservationListUpdated: boolean = false
 
 async function getReservations(): Promise<Array<ReservationDto>> {
   // If we have the reservations in the list and not updated, return it
   if (reservationListUpdated === true || reservations.length === 0) {
-    const res = await fetch(RESERVATION_URL).then(handleHttpErrors);
-    reservations = [...res];
+    const res = await fetch(RESERVATION_URL).then(handleHttpErrors)
+    reservations = [...res]
     // Set the reservationListUpdated to false, so we don't fetch the reservations again
-    reservationListUpdated = false;
-    return reservations;
+    reservationListUpdated = false
+    return reservations
   } else {
-    return [...reservations];
+    return [...reservations]
   }
 }
 
 async function getReservation(id: number): Promise<ReservationDto> {
   // If we have the reservation in the list and not updated, return it
   if (reservations.length > 0 && reservationListUpdated === false) {
-    const reservation = reservations.find((r) => r.id === id);
+    const reservation = reservations.find((r) => r.id === id)
     if (reservation) {
-      return reservation;
+      return reservation
     }
   }
-  return fetch(RESERVATION_URL + "/" + id).then(handleHttpErrors);
+  return fetch(RESERVATION_URL + '/' + id).then(handleHttpErrors)
 }
 
 async function createReservation(
-  reservation: ReservationDto
+  reservation: ReservationDto,
 ): Promise<ReservationDto> {
-  const options = makeOptions("POST", reservation);
+  const options = makeOptions('POST', reservation)
   // Set the reservationListUpdated to true, so we fetch the reservations again
-  reservationListUpdated = true;
-  return fetch(RESERVATION_URL, options).then(handleHttpErrors);
+  reservationListUpdated = true
+  return fetch(RESERVATION_URL, options).then(handleHttpErrors)
 }
 
 async function updateReservation(
-  reservation: ReservationDto
+  reservation: ReservationDto,
 ): Promise<ReservationDto> {
-  const options = makeOptions("PUT", reservation);
+  const options = makeOptions('PUT', reservation)
   // Set the reservationListUpdated to true, so we fetch the reservations again
-  reservationListUpdated = true;
-  return fetch(RESERVATION_URL + "/" + reservation.id, options).then(
-    handleHttpErrors
-  );
+  reservationListUpdated = true
+  return fetch(RESERVATION_URL + '/' + reservation.id, options).then(
+    handleHttpErrors,
+  )
 }
 
 async function cancelReservation(id: number): Promise<ReservationDto> {
-  const options = makeOptions("GET", null);
-  return fetch(RESERVATION_URL + "/" + id, options).then(handleHttpErrors);
+  const options = makeOptions('GET', null)
+  return fetch(RESERVATION_URL + '/' + id, options).then(handleHttpErrors)
 }
 
 async function getActivities(): Promise<Array<ActivityDto>> {
-  const options = makeOptions("GET", null);
-  const res = await fetch(ACTIVITY_URL + "", options).then(handleHttpErrors);
-  return res;
+  const options = makeOptions('GET', null)
+  const res = await fetch(ACTIVITY_URL + '', options).then(handleHttpErrors)
+  return res
 }
 
 async function getAvailableSlots(
   id: number,
-  date: string
+  date: string,
 ): Promise<Array<number>> {
-  const params = date ? `?date=${date}` : "";
+  const params = date ? `?date=${date}` : ''
   const res = await fetch(`${ACTIVITY_URL}/${id}/availableslots${params}`).then(
-    handleHttpErrors
-  );
-  return res;
+    handleHttpErrors,
+  )
+  return res
 }
 
 export {
@@ -82,7 +82,7 @@ export {
   cancelReservation,
   getActivities,
   getAvailableSlots,
-};
+}
 
 // JUST FOR INSPIRATION AND GUIDELINE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // The code below is a suggestion for how to implement the facade pattern

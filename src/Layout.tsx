@@ -1,7 +1,7 @@
-import NavHeader from "./NavHeader";
+import NavHeader from './NavHeader'
 type LayoutProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 const Layout = ({ children }: LayoutProps) => {
   return (
@@ -11,7 +11,7 @@ const Layout = ({ children }: LayoutProps) => {
       </header>
       <main className="page-content">{children}</main>
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

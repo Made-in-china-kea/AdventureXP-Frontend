@@ -1,36 +1,36 @@
-import { useState } from "react";
-import { User } from "../services/api/authAPI";
-import "./login.css";
-import { useAuth } from "./AuthProvider";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from 'react'
+import { User } from '../services/api/authAPI'
+import './login.css'
+import { useAuth } from './AuthProvider'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const Login = () => {
-  const [user, setUser] = useState({ username: "", password: "" });
+  const [user, setUser] = useState({ username: '', password: '' })
 
-  const navigate = useNavigate();
-  const location = useLocation();
-  const auth = useAuth();
+  const navigate = useNavigate()
+  const location = useLocation()
+  const auth = useAuth()
 
-  const [err, setErr] = useState(null);
+  const [err, setErr] = useState(null)
 
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || '/'
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+    event.preventDefault()
 
-    const formData = new FormData(event.currentTarget);
-    const user = Object.fromEntries(formData) as unknown as User;
+    const formData = new FormData(event.currentTarget)
+    const user = Object.fromEntries(formData) as unknown as User
 
-    setErr(null);
-    console.log(err);
+    setErr(null)
+    console.log(err)
     return auth
       .signIn(user)
       .then(() => {
-        navigate(from, { replace: true });
+        navigate(from, { replace: true })
       })
       .catch((err) => {
-        setErr(err);
-      });
+        setErr(err)
+      })
   }
 
   return (
@@ -66,7 +66,7 @@ const Login = () => {
         </button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

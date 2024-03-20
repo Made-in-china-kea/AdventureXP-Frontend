@@ -1,18 +1,16 @@
-
 .subpage-container {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc; /* Light grey border */
-    border-radius: 5px; /* Rounded corners */
-  }
-  
-  .subpage-container h1 {
-    color: #333; /* Dark grey color */
-    font-size: 24px;
-  }
-  
-  .subpage-container p {
-    color: #666; /* Medium grey color */
-    font-size: 16px;
-  }
-  
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.subpage-container h1 {
+  color: #333; /* Dark grey color */
+  font-size: 24px;
+}
+
+.subpage-container p {
+  color: #666; /* Medium grey color */
+  font-size: 16px;
+}

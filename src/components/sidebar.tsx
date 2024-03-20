@@ -1,8 +1,7 @@
-import './assets/styles/Sidebar.css'; 
-
+import './assets/styles/Sidebar.css'
 
 interface SidebarProps {
-  isOpen: boolean;
+  isOpen: boolean
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
@@ -20,7 +19,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
         <li>Login</li>
       </ul>
     </div>
-  );
+  )
 }
 
-export default Sidebar;
+export default Sidebar

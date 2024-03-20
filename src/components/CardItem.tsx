@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 // Define an interface for the component's props
 interface CardItemProps {
-  path: string;
-  label: string;
-  src: string;
-  text: string;
+  path: string
+  label: string
+  src: string
+  text: string
 }
 
 // Use the interface to type the function's props parameter
@@ -27,7 +27,7 @@ function CardItem(props: CardItemProps) {
         </Link>
       </li>
     </>
-  );
+  )
 }
 
-export default CardItem;
+export default CardItem

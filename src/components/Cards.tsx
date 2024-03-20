@@ -1,5 +1,5 @@
-import "../assets/styles/components/Cards.css";
-import CardItem from "./CardItem";
+import '../assets/styles/components/Cards.css'
+import CardItem from './CardItem'
 
 function Cards() {
   return (
@@ -44,7 +44,7 @@ function Cards() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Cards;
+export default Cards
