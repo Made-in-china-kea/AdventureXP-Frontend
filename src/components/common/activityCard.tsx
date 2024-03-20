@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { ActivityDto, ReservationActivityDto } from "../../types";
 import { getAvailableSlots } from "../../services/api/reservationAPI.tsx";
 
+interface TimeOption {
+  value: number;
+  label: string;
+}
+
 interface ActivityCardProps {
   activity: ActivityDto;
   date: string;
@@ -13,6 +18,10 @@ export default function ActivityCard({
   date,
   onReserveActivity,
 }: ActivityCardProps) {
+  // activity card image
+  const image = `../public/Images/activities/${activity.name}.jpg`;
+  const [startTime, setStartTime] = useState<number>(0);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [availableSlots, setAvailableSlots] = useState<number[]>([]);
   // set the available slots
   useEffect(() => {
@@ -23,17 +32,9 @@ export default function ActivityCard({
     }
   }, [activity, date]);
 
-  interface TimeOption {
-    value: number;
-    label: string;
-  }
-  // activity card image
-  const image = `../public/Images/activities/${activity.name}.jpg`;
-  const [startTime, setStartTime] = useState<number>(0);
-
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
   const reserveTimeSlot = (event) => {
+    console.log(event.target.value);
+
     // create ReservationActivityDto
     const reservationActivity: ReservationActivityDto = {
       activity: activity,
@@ -41,6 +42,7 @@ export default function ActivityCard({
       reservedSlots: event.target.value,
       created: new Date().toISOString(),
     };
+    console.log(reservationActivity);
 
     onReserveActivity(reservationActivity); // Call parent's callback with reservationActivity
   };
@@ -91,11 +93,11 @@ export default function ActivityCard({
             </div>
             {makeTimeOptions().map((option) => (
               <button
-              value={option.value}
-              onClick={() => {
-                setStartTime(option.value);
-                setIsModalOpen(true);
-              }}>
+                value={option.value}
+                onClick={() => {
+                  setStartTime(option.value);
+                  setIsModalOpen(true);
+                }}>
                 {option.label}
               </button>
             ))}
@@ -105,11 +107,14 @@ export default function ActivityCard({
 
       {/* modal to get number of reserved slots wanted from the user */}
       {isModalOpen && (
-        <div className="modal">
+        <dialog className="modal modal-open">
           <div className="modal-box">
             <p>
-              Indtast antal pladser. Varighed: {activity.timeSlot / 100}{" "}
-              time/timer
+              Hvor mange pladser af{" "}
+              {activity.timeSlot / 100 <= 1
+                ? `${activity.timeSlot / 100} times`
+                : `${activity.timeSlot / 100} timers`}{" "}
+              varighed vil du reservere?
             </p>
             <input
               type="number"
@@ -120,14 +125,20 @@ export default function ActivityCard({
               required></input>
             <button
               className="btn"
-              onClick={() => {
-                reserveTimeSlot;
+              onClick={(event) => {
+                event.preventDefault();
+                reserveTimeSlot(event);
                 setIsModalOpen(false);
               }}>
               Reserver
             </button>
+            <button
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              onClick={() => setIsModalOpen(false)}>
+              ✕
+            </button>
           </div>
-        </div>
+        </dialog>
       )}
     </div>
   );

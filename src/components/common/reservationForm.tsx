@@ -7,6 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import { getActivities } from "../../services/api/reservationAPI";
 import ActivityCard from "./activityCard";
+import Login from "../../security/Login";
 
 export default function ReservationForm() {
   const [customerType, setCustomerType] = useState("private");
@@ -62,6 +63,8 @@ export default function ReservationForm() {
     reservationActivity: ReservationActivityDto
   ) => {
     setReservedActivities([...reservedActivities, reservationActivity]);
+
+    console.log(reservedActivities);
   };
 
   return (
