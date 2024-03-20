@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { ActivityDto, ReservationActivityDto } from "../../types";
 import { getAvailableSlots } from "../../services/api/reservationAPI.tsx";
 
+interface TimeOption {
+  value: number;
+  label: string;
+}
 interface ActivityCardProps {
   activity: ActivityDto;
   date: string;
@@ -13,8 +17,17 @@ export default function ActivityCard({
   date,
   onReserveActivity,
 }: ActivityCardProps) {
+  // activity card image
+  const image = `../public/Images/activities/${activity.name}.jpg`;
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [availableSlots, setAvailableSlots] = useState<number[]>([]);
-
+  const [reservationActivity, setReservationActivity] =
+    useState<ReservationActivityDto>({
+      activity: activity,
+      startTime: 0,
+      reservedSlots: 0,
+      created: new Date().toISOString(),
+    });
   // set the available slots
   useEffect(() => {
     if (date) {
@@ -24,21 +37,8 @@ export default function ActivityCard({
     }
   }, [activity, date]);
 
-  interface TimeOption {
-    value: number;
-    label: string;
-  }
-  // activity card image
-  const image = `../public/Images/activities/${activity.name}.jpg`;
-
-  const handleTimeChange = (event) => {
-    // create ReservationActivityDto
-    const reservationActivity: ReservationActivityDto = {
-      activity: activity,
-      startTime: event.target.value,
-      reservedSlots: 1,
-      created: new Date().toISOString(),
-    };
+  const reserveTimeSlot = () => {
+    console.log(reservationActivity);
 
     onReserveActivity(reservationActivity); // Call parent's callback with reservationActivity
   };
@@ -81,16 +81,69 @@ export default function ActivityCard({
       </div>
 
       {/* activity card with available slots nested in each div so that we can display all activities with available slots under */}
-      <div>
-        <label className={`input input-bordered flex items-center gap-2 w-96 `}>
-          Ledige starttider:
-          {makeTimeOptions().map((option) => (
-            <button value={option.value} onClick={handleTimeChange}>
-              {option.label}
-            </button>
-          ))}
+      <div className=" h-60 overflow-auto rounded-md">
+        <label className=" items-center gap-2 w-96 relative">
+          <div className="grid grid-cols-subgrid">
+            <div className="sticky top-0 left-0 right-0 bg-amber-500 text-black">
+              <p className="text-center font-bold">Ledige starttider</p>
+            </div>
+            {makeTimeOptions().map((option) => (
+              <button
+                value={option.value}
+                onClick={() => {
+                  setReservationActivity({
+                    ...reservationActivity,
+                    startTime: option.value,
+                  });
+                  setIsModalOpen(true);
+                }}>
+                {option.label}
+              </button>
+            ))}
+          </div>
         </label>
       </div>
+
+      {/* modal to get number of reserved slots wanted from the user */}
+      {isModalOpen && (
+        <dialog className="modal modal-open">
+          <div className="modal-box">
+            <p>
+              Hvor mange pladser af{" "}
+              {activity.timeSlot / 100 <= 1
+                ? `${activity.timeSlot / 100} times`
+                : `${activity.timeSlot / 100} timers`}{" "}
+              varighed vil du reservere?
+            </p>
+            <input
+              type="number"
+              id="slots"
+              name="slots"
+              min="1"
+              max="10"
+              required></input>
+            <button
+              className="btn"
+              onClick={(event) => {
+                event.preventDefault();
+                setReservationActivity({
+                  ...reservationActivity,
+                  reservedSlots: parseInt(
+                    (document.getElementById("slots") as HTMLInputElement).value
+                  ),
+                });
+                setIsModalOpen(false);
+              }}>
+              Reserver
+            </button>
+            <button
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              onClick={() => setIsModalOpen(false)}>
+              ✕
+            </button>
+          </div>
+        </dialog>
+      )}
     </div>
   );
 }
