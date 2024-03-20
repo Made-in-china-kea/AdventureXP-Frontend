@@ -26,7 +26,7 @@ export const Button = (props: ButtonProps) => {
   return (
     <Link to="/reservation" className="btn-mobile">
       <button
-        className={`btn ${checkButtonStyle} ${checkButtonSize}`}
+        className={`btns ${checkButtonStyle} ${checkButtonSize}`}
         onClick={props.onClick}
         type={props.type}>
         {props.children}

@@ -1,9 +1,14 @@
-// Subpage.js
-import React from "react";
-import { Button } from "./Button";
-import "./Subpage.css"; // Importing CSS for styling
+import React from 'react';
+import '../assets/styles/components/Subpage.css';
 
-const Subpage = ({ title, content }) => {
+// Define an interface for the component's props
+interface SubpageProps {
+  title: string;
+  content: string;
+}
+
+// Apply the interface to your component's props
+const Subpage: React.FC<SubpageProps> = ({ title, content }) => {
   return (
     <div className="subpage-container">
       <h1>{title}</h1>

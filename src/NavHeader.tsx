@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from './components/Button.tsx';
 import { NavLink } from 'react-router-dom'; // Use this if you prefer NavLink
 import './assets/styles/Navbar.css';
@@ -108,7 +108,14 @@ function Navbar() {
         
             </li>
           </ul>
-          {button && <Button buttonStyle='btn--outline'>Book here!</Button>}
+          {button && <Button 
+            buttonStyle='btn--outline' 
+            buttonSize='btn--medium' // Assuming 'btn--medium' is a valid size based on your Button component
+            type="button" // Specify the button type, common types are "button", "submit", or "reset"
+            onClick={() => {}} // Provide an onClick handler, even if it's a no-op for now
+          >
+            Book here!
+          </Button>}
         </div>
       </nav>
       <nav>

@@ -1,7 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-function CardItem(props) {
+// Define an interface for the component's props
+interface CardItemProps {
+  path: string;
+  label: string;
+  src: string;
+  text: string;
+}
+
+// Use the interface to type the function's props parameter
+function CardItem(props: CardItemProps) {
   return (
     <>
       <li className="cards__item">

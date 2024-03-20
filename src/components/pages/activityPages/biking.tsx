@@ -1,6 +1,6 @@
 // App.js
-import React from 'react';
-import Subpage from './src/components/Subpage.tsx';
+
+import Subpage from '../../../components/Subpage.tsx'
 
 function Biking() {
   return (

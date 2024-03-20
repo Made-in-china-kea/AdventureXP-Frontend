@@ -1,7 +1,11 @@
-import React from 'react';
-import '.assets/styles/Sidebar.css'; 
+import './assets/styles/Sidebar.css'; 
 
-function Sidebar({ isOpen }) {
+
+interface SidebarProps {
+  isOpen: boolean;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   return (
     <div className={`sidebar ${isOpen ? 'open' : ''}`}>
       <h2>Sidebar Menu</h2>
