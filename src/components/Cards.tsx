@@ -9,13 +9,13 @@ function Cards() {
         <div className="cards__wrapper">
           <ul className="cards__items">
             <CardItem
-              src="../public/Images/biking.jpg"
+              src="src/assets/Images/activities/biking.jpg"
               text="Go cruise the trails!"
               label="Biking"
               path="/biking"
             />
             <CardItem
-              src="../public/Images/Gokart.jpg"
+              src="src/assets/Images/activities/gokart.jpg"
               text="Race against your family and friends on our tracks"
               label="Go-karting"
               path="/gokart"
@@ -23,19 +23,19 @@ function Cards() {
           </ul>
           <ul className="cards__items">
             <CardItem
-              src="../public/Images/paintball.jpg"
+              src="src/assets/Images/activities/paintball.jpg"
               text="Shoot your friends on the course"
               label="Paintball"
               path="/paintball"
             />
             <CardItem
-              src="../public/Images/minigolf.jpg"
+              src="src/assets/Images/activities/mini-golf.jpg"
               text="Experience our fantastic minigolf course"
               label="Minigolf"
               path="/minigolf"
             />
             <CardItem
-              src="../public/Images/sumo-suits-redditch.jpg"
+              src="src/assets/Images/activities/sumowrestling.jpg"
               text="Put on a 50 kg suit and destroy your friends"
               label="Sumo-Wrestling"
               path="/Sumo"
