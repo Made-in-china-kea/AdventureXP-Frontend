@@ -81,14 +81,18 @@ export default function ActivityCard({
       </div>
 
       {/* activity card with available slots nested in each div so that we can display all activities with available slots under */}
-      <div>
-        <label className={`input input-bordered flex items-center gap-2 w-96 `}>
-          Ledige starttider:
-          {makeTimeOptions().map((option) => (
-            <button value={option.value} onClick={handleTimeChange}>
-              {option.label}
-            </button>
-          ))}
+      <div className=" h-60 overflow-auto rounded-md">
+        <label className=" items-center gap-2 w-96 relative">
+          <div className="grid grid-cols-subgrid">
+            <div className="sticky top-0 left-0 right-0 bg-amber-500 text-black">
+              <p className="text-center font-bold">Ledige starttider</p>
+            </div>
+            {makeTimeOptions().map((option) => (
+              <button value={option.value} onClick={handleTimeChange}>
+                {option.label}
+              </button>
+            ))}
+          </div>
         </label>
       </div>
     </div>
