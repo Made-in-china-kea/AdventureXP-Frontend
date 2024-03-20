@@ -14,7 +14,6 @@ export default function ActivityCard({
   onReserveActivity,
 }: ActivityCardProps) {
   const [availableSlots, setAvailableSlots] = useState<number[]>([]);
-
   // set the available slots
   useEffect(() => {
     if (date) {
@@ -30,13 +29,16 @@ export default function ActivityCard({
   }
   // activity card image
   const image = `../public/Images/activities/${activity.name}.jpg`;
+  const [startTime, setStartTime] = useState<number>(0);
 
-  const handleTimeChange = (event) => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const reserveTimeSlot = (event) => {
     // create ReservationActivityDto
     const reservationActivity: ReservationActivityDto = {
       activity: activity,
-      startTime: event.target.value,
-      reservedSlots: 1,
+      startTime: startTime,
+      reservedSlots: event.target.value,
       created: new Date().toISOString(),
     };
 
@@ -88,13 +90,45 @@ export default function ActivityCard({
               <p className="text-center font-bold">Ledige starttider</p>
             </div>
             {makeTimeOptions().map((option) => (
-              <button value={option.value} onClick={handleTimeChange}>
+              <button
+              value={option.value}
+              onClick={() => {
+                setStartTime(option.value);
+                setIsModalOpen(true);
+              }}>
                 {option.label}
               </button>
             ))}
           </div>
         </label>
       </div>
+
+      {/* modal to get number of reserved slots wanted from the user */}
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-box">
+            <p>
+              Indtast antal pladser. Varighed: {activity.timeSlot / 100}{" "}
+              time/timer
+            </p>
+            <input
+              type="number"
+              id="slots"
+              name="slots"
+              min="1"
+              max="10"
+              required></input>
+            <button
+              className="btn"
+              onClick={() => {
+                reserveTimeSlot;
+                setIsModalOpen(false);
+              }}>
+              Reserver
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
