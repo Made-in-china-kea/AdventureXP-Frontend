@@ -6,7 +6,6 @@ interface TimeOption {
   value: number;
   label: string;
 }
-
 interface ActivityCardProps {
   activity: ActivityDto;
   date: string;
@@ -20,9 +19,15 @@ export default function ActivityCard({
 }: ActivityCardProps) {
   // activity card image
   const image = `../public/Images/activities/${activity.name}.jpg`;
-  const [startTime, setStartTime] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [availableSlots, setAvailableSlots] = useState<number[]>([]);
+  const [reservationActivity, setReservationActivity] =
+    useState<ReservationActivityDto>({
+      activity: activity,
+      startTime: 0,
+      reservedSlots: 0,
+      created: new Date().toISOString(),
+    });
   // set the available slots
   useEffect(() => {
     if (date) {
@@ -32,16 +37,7 @@ export default function ActivityCard({
     }
   }, [activity, date]);
 
-  const reserveTimeSlot = (event) => {
-    console.log(event.target.value);
-
-    // create ReservationActivityDto
-    const reservationActivity: ReservationActivityDto = {
-      activity: activity,
-      startTime: startTime,
-      reservedSlots: event.target.value,
-      created: new Date().toISOString(),
-    };
+  const reserveTimeSlot = () => {
     console.log(reservationActivity);
 
     onReserveActivity(reservationActivity); // Call parent's callback with reservationActivity
@@ -95,7 +91,10 @@ export default function ActivityCard({
               <button
                 value={option.value}
                 onClick={() => {
-                  setStartTime(option.value);
+                  setReservationActivity({
+                    ...reservationActivity,
+                    startTime: option.value,
+                  });
                   setIsModalOpen(true);
                 }}>
                 {option.label}
@@ -127,7 +126,12 @@ export default function ActivityCard({
               className="btn"
               onClick={(event) => {
                 event.preventDefault();
-                reserveTimeSlot(event);
+                setReservationActivity({
+                  ...reservationActivity,
+                  reservedSlots: parseInt(
+                    (document.getElementById("slots") as HTMLInputElement).value
+                  ),
+                });
                 setIsModalOpen(false);
               }}>
               Reserver
