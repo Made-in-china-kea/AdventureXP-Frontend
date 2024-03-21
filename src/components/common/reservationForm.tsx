@@ -70,7 +70,7 @@ export default function ReservationForm() {
   }
 
   return (
-    <div className="flex justify-center items-center w-screen">
+    <div className="mt-32">
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* container/timeline for reserved activities */}
 

@@ -90,15 +90,17 @@ export default function ActivityCard({
               <p className="text-center font-bold">Ledige starttider</p>
             </div>
             {makeTimeOptions().map((option) => (
+              <div className='mt-4'>
               <button
                 value={option.value}
                 onClick={() => {
                   setStartTime(option.value)
                   setIsModalOpen(true)
                 }}
-              >
+                >
                 {option.label}
               </button>
+                </div>
             ))}
           </div>
         </label>
