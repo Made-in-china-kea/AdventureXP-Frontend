@@ -1,72 +1,84 @@
-import { useState } from 'react'
-import { User } from '../services/api/authAPI'
-import './login.css'
-import { useAuth } from './AuthProvider'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { useAuth } from './AuthProvider';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [user, setUser] = useState({ username: '', password: '' })
-
-  const navigate = useNavigate()
-  const location = useLocation()
-  const auth = useAuth()
-
-  const [err, setErr] = useState(null)
-
-  const from = location.state?.from?.pathname || '/'
+  const [user, setUser] = useState({ username: '', password: '' });
+  const navigate = useNavigate();
+  const location = useLocation();
+  const auth = useAuth();
+  const [err, setErr] = useState<string | null>(null); // Ensure `err` is typed to store a string or null
+  const from = location.state?.from?.pathname || '/';
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+    event.preventDefault();
 
-    const formData = new FormData(event.currentTarget)
-    const user = Object.fromEntries(formData) as unknown as User
-
-    setErr(null)
-    console.log(err)
-    return auth
+    auth
       .signIn(user)
-      .then(() => {
-        navigate(from, { replace: true })
-      })
-      .catch((err) => {
-        setErr(err)
-      })
+      .then(() => navigate(from, { replace: true }))
+      .catch((err: unknown) => { // Catch block now correctly handles `err` of type `unknown`
+        if (err instanceof Error) {
+          setErr(err.message); // Safe to access `message` because we've checked `err` is an Error
+        } else {
+          // Handle non-Error objects, could log or set a generic error message
+          setErr('An error occurred, please try again.');
+        }
+      });
   }
 
   return (
-    <div className="login-wrapper">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <div className="login-form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            name="username"
-            value={user.username}
-            onChange={(e) =>
-              setUser((prev) => ({ ...prev, username: e.target.value }))
-            }
-            required
-          />
+    <div className="hero min-h-screen bg-base-200">
+      <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="text-center lg:text-left">
+          <h1 className="text-5xl font-bold">Employee login</h1>
+          <p className="py-6">
+            This is for employees only, Please dont try to login in, or i will lose it
+          </p>
         </div>
-        <div className="login-form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={user.password}
-            onChange={(e) =>
-              setUser((prev) => ({ ...prev, password: e.target.value }))
-            }
-            required
-          />
+        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <form className="card-body" onSubmit={handleSubmit}>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Username</span>
+              </label>
+              <input 
+                type="text" 
+                name="username" 
+                value={user.username}
+                onChange={(e) => setUser((prev) => ({ ...prev, username: e.target.value }))}
+                className="input input-bordered" 
+                required 
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input 
+                type="password" 
+                name="password" 
+                value={user.password}
+                onChange={(e) => setUser((prev) => ({ ...prev, password: e.target.value }))}
+                className="input input-bordered" 
+                required 
+              />
+              <label className="label">
+                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+              </label>
+            </div>
+            <div className="form-control mt-6">
+              <button type="submit" className="btn btn-primary">Login</button>
+            </div>
+            {err && <div className="form-control mt-4">
+              <div className="alert alert-error">
+                {err} 
+              </div>
+            </div>}
+          </form>
         </div>
-        <button type="submit" className="login-btn">
-          Login
-        </button>
-      </form>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
