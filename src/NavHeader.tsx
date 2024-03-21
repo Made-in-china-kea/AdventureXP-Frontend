@@ -80,7 +80,7 @@ function Navbar() {
                   <li className="dropdown-item">
                     <NavLink
                       to="/paintball"
-                      className="nav-links"
+                      className="nav-links bg-black"
                       onClick={closeMobileMenu}
                     >
                       Paintball
@@ -89,7 +89,7 @@ function Navbar() {
                   <li className="dropdown-item">
                     <NavLink
                       to="/biking"
-                      className="nav-links"
+                      className="nav-links bg-black"
                       onClick={closeMobileMenu}
                     >
                       Biking
@@ -98,7 +98,7 @@ function Navbar() {
                   <li className="dropdown-item">
                     <NavLink
                       to="/gokart"
-                      className="nav-links"
+                      className="nav-links bg-black"
                       onClick={closeMobileMenu}
                     >
                       Go-kart
@@ -107,7 +107,7 @@ function Navbar() {
                   <li className="dropdown-item">
                     <NavLink
                       to="/sumo"
-                      className="nav-links"
+                      className="nav-links bg-black"
                       onClick={closeMobileMenu}
                     >
                       Sumo
@@ -116,7 +116,7 @@ function Navbar() {
                   <li className="dropdown-item">
                     <NavLink
                       to="/minigolf"
-                      className="nav-links"
+                      className="nav-links bg-black"
                       onClick={closeMobileMenu}
                     >
                       Mini golf
