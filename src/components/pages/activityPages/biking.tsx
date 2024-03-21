@@ -1,17 +1,27 @@
-// App.js
 
-import Subpage from '../../../components/Subpage.tsx'
+import backgroundImage from '../../../assets/Images/backgrounds/bikingbackground.png'; 
+import {Button} from '../../Button.tsx'
 
-function Biking() {
+const Biking = () => {
   return (
-    <div>
-      <Subpage
-        title="Biking Basics"
-        content="Learn all about the basics of biking, from choosing the right bike to essential safety tips."
-      />
-      {/* Add more Subpage components as needed for other topics */}
+    <div className="hero min-h-screen bg-no-repeat bg-cover bg-center"  style={{backgroundImage: `url(${backgroundImage})`}}>
+      <div className="hero-overlay bg-opacity-60"></div>
+      <div className="hero-content text-center text-neutral-content">
+        <div className="max-w-md">
+          <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
+          <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+          <Button
+          buttonStyle="btn--outline"
+          buttonSize="btn--large"
+          type="button"
+          onClick={() => {}}
+        >
+          Book Here!
+        </Button>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Biking
+export default Biking;
