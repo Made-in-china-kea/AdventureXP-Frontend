@@ -69,7 +69,7 @@ export default function ActivityCard({
       )}
 
       <div className="card-body text-custom-txt-colour">
-        <h2 className="card-title">{activity.name.toLocaleUpperCase()}</h2>
+        <h2 className="card-title text-2xl">{activity.name.toLocaleUpperCase()}</h2>
         <p></p>
         <div className="card-actions justify-end">
           <div className="badge badge-outline">
