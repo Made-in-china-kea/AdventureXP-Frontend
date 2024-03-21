@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from './AuthProvider';
 import { useLocation, useNavigate } from 'react-router-dom';
+import "./../App.css";
 
 const Login = () => {
   const [user, setUser] = useState({ username: '', password: '' });
@@ -27,7 +28,7 @@ const Login = () => {
   }
 
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold">Employee login</h1>
@@ -36,10 +37,10 @@ const Login = () => {
           </p>
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <form className="card-body" onSubmit={handleSubmit}>
+          <form className="card-body bg-custom-txt-colour rounded-xl" onSubmit={handleSubmit}>
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Username</span>
+              <label className="label ">
+                <span className="label-text text-custom-bg-colour">Username</span>
               </label>
               <input 
                 type="text" 
@@ -52,7 +53,7 @@ const Login = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Password</span>
+                <span className="label-text text-custom-bg-colour">Password</span>
               </label>
               <input 
                 type="password" 
@@ -66,8 +67,8 @@ const Login = () => {
                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
               </label>
             </div>
-            <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary">Login</button>
+            <div className="form-control mt-6 ">
+              <button type="submit" className="btn bg-custom-btn-colour text-custom-txt-colour">Login</button>
             </div>
             {err && <div className="form-control mt-4">
               <div className="alert alert-error">
