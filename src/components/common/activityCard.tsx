@@ -59,16 +59,16 @@ export default function ActivityCard({
   }
 
   return (
-    <div className="card w-96 bg-base-100 shadow-xl mt-10">
+    <div className="card w-96 bg-custom-bg-colour shadow-xl mt-10">
       {(image && (
         <figure>
-          <img src={image} alt="Shoes" />
+          <img src={image} alt="" />
         </figure>
       )) || ( // If no image, display a placeholder
         <div className="placeholder w-96 h-48 bg-gray-400"></div>
       )}
 
-      <div className="card-body">
+      <div className="card-body text-custom-txt-colour">
         <h2 className="card-title">{activity.name.toLocaleUpperCase()}</h2>
         <p></p>
         <div className="card-actions justify-end">
@@ -84,13 +84,13 @@ export default function ActivityCard({
 
       {/* activity card with available slots nested in each div so that we can display all activities with available slots under */}
       <div className=" h-60 overflow-auto rounded-md">
-        <label className=" items-center gap-2 w-96 relative">
+        <label>
           <div className="grid grid-cols-subgrid">
             <div className="sticky top-0 left-0 right-0 bg-amber-500 text-black">
               <p className="text-center font-bold">Ledige starttider</p>
             </div>
             {makeTimeOptions().map((option) => (
-              <div className='mt-4'>
+              <div className='mt-4 text-custom-txt-colour text-center'>
               <button
                 value={option.value}
                 onClick={() => {
