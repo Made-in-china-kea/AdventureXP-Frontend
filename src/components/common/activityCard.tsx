@@ -2,19 +2,17 @@ import { useEffect, useState } from 'react'
 import { ActivityDto, ReservationActivityDto } from '../../types'
 import { getAvailableSlots } from '../../services/api/reservationAPI.tsx'
 
-interface TimeOption {
-  value: number
-  label: string
-}
 interface ActivityCardProps {
   activity: ActivityDto
   date: string
+  timeSlotsUsed: number[]
   onReserveActivity: (reservationActivity: ReservationActivityDto) => void
 }
 
 export default function ActivityCard({
   activity,
   date,
+  timeSlotsUsed,
   onReserveActivity,
 }: ActivityCardProps) {
   // activity card image
@@ -26,36 +24,28 @@ export default function ActivityCard({
   // set the available slots
   useEffect(() => {
     if (date) {
-      getAvailableSlots(activity.id, date).then((data) =>
-        setAvailableSlots(data),
-      )
+      getAvailableSlots(activity.id, date)
+        .then((data) => data.filter((slot) => !timeSlotsUsed.includes(slot)))
+        .then((data) => setAvailableSlots(data))
     }
-  }, [activity, date])
+  }, [activity, date, timeSlotsUsed])
 
-  const reserveTimeSlot = () => {
+  const reserveActivity = () => {
     // create a reservationActivity object with the selected activity, date, start time and reserved slots
     const reservationActivity: ReservationActivityDto = {
+      reservation: null,
       activity: activity,
       startTime: startTime,
       reservedSlots: reservedSlots,
-      created: new Date().toISOString(),
     }
     console.log(reservationActivity)
 
     onReserveActivity(reservationActivity) // Call parent's callback with reservationActivity
   }
 
-  function makeTimeOptions(): TimeOption[] {
-    const timeOptions: TimeOption[] = []
-
-    for (const time of availableSlots) {
-      const formattedTime = time.toString().padStart(4, '0') // Ensure 4-digit format
-      const displayedTime = `${formattedTime
-        .toString()
-        .slice(0, 2)}:${formattedTime.toString().slice(2)}`
-      timeOptions.push({ value: time, label: `kl. ${displayedTime}` })
-    }
-    return timeOptions
+  const formatTime = (time: number): string => {
+    const formattedTime = time.toString().padStart(4, '0') // Ensure 4-digit format
+    return `${formattedTime.toString().slice(0, 2)}:${formattedTime.toString().slice(2)}`
   }
 
   return (
@@ -69,7 +59,9 @@ export default function ActivityCard({
       )}
 
       <div className="card-body text-custom-txt-colour">
-        <h2 className="card-title text-2xl">{activity.name.toLocaleUpperCase()}</h2>
+        <h2 className="card-title text-2xl">
+          {activity.name.toLocaleUpperCase()}
+        </h2>
         <p></p>
         <div className="card-actions justify-end">
           <div className="badge badge-outline">
@@ -89,18 +81,18 @@ export default function ActivityCard({
             <div className="sticky top-0 left-0 right-0 bg-amber-500 text-black">
               <p className="text-center font-bold">Ledige starttider</p>
             </div>
-            {makeTimeOptions().map((option) => (
-              <div className='mt-4 text-custom-txt-colour text-center'>
+            {availableSlots.map((slot) => (
               <button
-                value={option.value}
+                value={slot}
+                key={slot}
+                className="btn"
                 onClick={() => {
-                  setStartTime(option.value)
+                  setStartTime(slot)
                   setIsModalOpen(true)
                 }}
-                >
-                {option.label}
+              >
+                {formatTime(slot)}
               </button>
-                </div>
             ))}
           </div>
         </label>
@@ -131,7 +123,7 @@ export default function ActivityCard({
               className="btn"
               onClick={(event) => {
                 event.preventDefault()
-                reserveTimeSlot()
+                reserveActivity()
                 setIsModalOpen(false)
               }}
             >

@@ -16,6 +16,7 @@ export default function ReservationForm() {
   const [reservedActivities, setReservedActivities] = useState<
     ReservationActivityDto[]
   >([])
+  const [timeSlotsUsed, setTimeSlotsUsed] = useState<number[]>([])
   const [activities, setActivities] = useState<ActivityDto[]>([])
   const [selectedDate, setSelectedDate] = useState<string>('')
 
@@ -23,12 +24,7 @@ export default function ReservationForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ReservationDto>({
-    defaultValues: {
-      reservationDate: selectedDate,
-      created: new Date().toISOString(),
-    },
-  })
+  } = useForm<ReservationDto>()
 
   // set the activities
   useEffect(() => {
@@ -37,21 +33,22 @@ export default function ReservationForm() {
   }, [])
 
   const onSubmit = (data: ReservationDto) => {
-    console.log(data)
+    console.log('data - ', data)
     // create ReservationDto
     const reservation: ReservationDto = {
       ...data,
       reservedActivities: reservedActivities,
-      reservationDate: selectedDate,
+      // convert the selected date to a date object
+      reservationDate: new Date(selectedDate),
     }
-    // set guest or company to null if not needed
+    // set guest or company to null
     if (customerType === 'private') {
       reservation.company = null
     } else {
       reservation.guest = null
     }
-    createReservation(reservation).then((res) => console.log(res))
-    console.log(reservation)
+    createReservation(reservation).then((res) => console.log('response-', res))
+    console.log('resevation- ', reservation)
   }
 
   //get today's date to be used as min date in the date input field
@@ -63,23 +60,43 @@ export default function ReservationForm() {
     return `${year}-${month}-${day}`
   }
 
+  // function to get array of timeslots to be filtered out in the activity cards
+  const getTimeSlotsUsed = () => {
+    const timeSlotsUsed: number[] = []
+
+    for (const activity of reservedActivities) {
+      const endTime =
+        activity.startTime + activity.activity.timeSlot * activity.reservedSlots
+      for (let i = activity.startTime; i < endTime; i += 100) {
+        // i += 100 because the time is in 4 digit military format eg. 0800
+        timeSlotsUsed.push(i) // Add timeslot to the existing array
+      }
+    }
+    return timeSlotsUsed
+  }
+
   const handleActivityReservation = (
     reservationActivity: ReservationActivityDto,
   ) => {
     setReservedActivities([...reservedActivities, reservationActivity])
+    setTimeSlotsUsed(getTimeSlotsUsed())
   }
 
   return (
     <div className="mt-32">
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* container/timeline for reserved activities */}
-
         {reservedActivities.map((activity) => (
           <div className="flex justify-center items-center mt-4">
             <div>
-              <span>{activity.activity.name}</span>
-              <span>{activity.startTime}</span>
-              <span>{activity.reservedSlots}</span>
+              <p>Aktivitet: {activity.activity.name}</p>
+              <p> Starttid : kl {activity.startTime}</p>
+              <p> Antal: {activity.reservedSlots}</p>
+              <p>
+                Varighed:{' '}
+                {(activity.reservedSlots * activity.activity.timeSlot) / 100}{' '}
+                timer
+              </p>
             </div>
           </div>
         ))}
@@ -432,6 +449,7 @@ export default function ReservationForm() {
               {activities.map((activity) => (
                 <ActivityCard
                   onReserveActivity={handleActivityReservation}
+                  timeSlotsUsed={timeSlotsUsed}
                   key={activity.id}
                   activity={activity}
                   date={selectedDate}
@@ -449,8 +467,8 @@ export default function ReservationForm() {
             Send reservation
           </button>
         </div>
-        {errors.reservationTime && (
-          <span>{errors.reservationTime.message}</span>
+        {errors.reservationDate && (
+          <span>{errors.reservationDate.message}</span>
         )}
       </form>
     </div>
