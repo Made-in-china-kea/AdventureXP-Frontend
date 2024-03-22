@@ -47,6 +47,12 @@ export default function ReservationForm() {
     console.log('reservation - ', reservation)
   }
 
+  const formatTimeRange = (startTime: number, duration: number): string => {
+    const start = formatTime(startTime);
+    const end = formatTime(startTime + duration);
+    return `${start}-${end}`;
+  };
+
   const formatTime = (time: number): string => {
     const formattedTime = time.toString().padStart(4, '0') // Ensure 4-digit format
     return `${formattedTime.toString().slice(0, 2)}:${formattedTime.toString().slice(2)}`
@@ -86,6 +92,13 @@ export default function ReservationForm() {
     return newTimeSlotsUsed
   }
 
+  // Function to delete an activity by its index
+  const deleteActivity = (index: number) => {
+    setReservedActivities((currentActivities) =>
+      currentActivities.filter((_, i) => i !== index)
+    );
+  };
+
   return (
     <div className="mt-32 justify-center">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -97,15 +110,23 @@ export default function ReservationForm() {
             >
               <div className="card-body">
                 <h2 className="card-title">{activity.activity.name}</h2>
-                <p>Starttid: kl {activity.startTime}</p>
-                <p>Antal: {activity.reservedSlots}</p>
+                <p>Starttid: {formatTimeRange(activity.startTime, activity.activity.timeSlot * activity.reservedSlots)}</p>
+              <p>Antal: {activity.reservedSlots}</p>
+              
                 <p>
                   Varighed:{' '}
                   {(activity.reservedSlots * activity.activity.timeSlot) / 100}{' '}
                   timer
                 </p>
 
-                <div className="card-actions justify-end"></div>
+                <div className="card-actions justify-center">
+                <button
+                  onClick={() => deleteActivity(index)}
+                  className="btn btn-error"
+                >
+                  Delete
+                </button>
+              </div>
               </div>
             </div>
           ))}
