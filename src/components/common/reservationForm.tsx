@@ -1,57 +1,48 @@
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   ActivityDto,
   ReservationActivityDto,
   ReservationDto,
 } from '../../types'
-import { useEffect, useState } from 'react'
 import {
   createReservation,
   getActivities,
 } from '../../services/api/reservationAPI'
-import ActivityCard from './activityCard'
+import ActivityCard from './activityCard.tsx'
 
 export default function ReservationForm() {
   const [customerType, setCustomerType] = useState('private')
-  const [reservedActivities, setReservedActivities] = useState<
-    ReservationActivityDto[]
-  >([])
+  const [reservedActivities, setReservedActivities] = useState<ReservationActivityDto[]>([])
   const [timeSlotsUsed, setTimeSlotsUsed] = useState<number[]>([])
   const [activities, setActivities] = useState<ActivityDto[]>([])
   const [selectedDate, setSelectedDate] = useState<string>('')
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ReservationDto>()
+  const { register, handleSubmit, formState: { errors } } = useForm<ReservationDto>()
 
-  // set the activities
   useEffect(() => {
     getActivities().then((data) => setActivities(data))
-    getTodayDate()
+    setSelectedDate(getTodayDate())
   }, [])
 
   const onSubmit = (data: ReservationDto) => {
     console.log('data - ', data)
-    // create ReservationDto
     const reservation: ReservationDto = {
       ...data,
       reservedActivities: reservedActivities,
-      // convert the selected date to a date object
       reservationDate: selectedDate,
     }
-    // set guest or company to null
+
     if (customerType === 'private') {
       reservation.company = null
     } else {
       reservation.guest = null
     }
+
     createReservation(reservation).then((res) => console.log('response-', res))
     console.log('resevation- ', reservation)
   }
 
-  //get today's date to be used as min date in the date input field
   const getTodayDate = () => {
     const today = new Date()
     const year = today.getFullYear()
@@ -60,42 +51,36 @@ export default function ReservationForm() {
     return `${year}-${month}-${day}`
   }
 
-  // function to get array of timeslots to be filtered out in the activity cards
-  const getTimeSlotsUsed = () => {
-    const timeSlotsUsed: number[] = []
-
-    for (const activity of reservedActivities) {
-      const endTime =
-        activity.startTime + activity.activity.timeSlot * activity.reservedSlots
-      for (let i = activity.startTime; i < endTime; i += 100) {
-        // i += 100 because the time is in 4 digit military format eg. 0800
-        timeSlotsUsed.push(i) // Add timeslot to the existing array
-      }
-    }
-    return timeSlotsUsed
+  const handleActivityReservation = (reservationActivity: ReservationActivityDto) => {
+    setReservedActivities((currentActivities) => [...currentActivities, reservationActivity])
   }
 
-  const handleActivityReservation = (
-    reservationActivity: ReservationActivityDto,
-  ) => {
-    setReservedActivities([...reservedActivities, reservationActivity])
+  useEffect(() => {
     setTimeSlotsUsed(getTimeSlotsUsed())
+  }, [reservedActivities])
+
+  const getTimeSlotsUsed = () => {
+    const newTimeSlotsUsed: number[] = []
+    for (const activity of reservedActivities) {
+      const endTime = activity.startTime + activity.activity.timeSlot * activity.reservedSlots
+      for (let i = activity.startTime; i < endTime; i += 100) {
+        newTimeSlotsUsed.push(i)
+      }
+    }
+    return newTimeSlotsUsed
   }
 
   return (
     <div className="mt-32">
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* container/timeline for reserved activities */}
         {reservedActivities.map((activity) => (
-          <div className="flex justify-center items-center mt-4">
+          <div key={activity.activity.id} className="flex justify-center items-center mt-4">
             <div>
               <p>Aktivitet: {activity.activity.name}</p>
-              <p> Starttid : kl {activity.startTime}</p>
+              <p> Starttid: kl {activity.startTime}</p>
               <p> Antal: {activity.reservedSlots}</p>
               <p>
-                Varighed:{' '}
-                {(activity.reservedSlots * activity.activity.timeSlot) / 100}{' '}
-                timer
+                Varighed: {(activity.reservedSlots * activity.activity.timeSlot) / 100} timer
               </p>
             </div>
           </div>
