@@ -13,20 +13,24 @@ import ActivityCard from './activityCard.tsx'
 
 export default function ReservationForm() {
   const [customerType, setCustomerType] = useState('private')
-  const [reservedActivities, setReservedActivities] = useState<ReservationActivityDto[]>([])
+  const [reservedActivities, setReservedActivities] = useState<
+    ReservationActivityDto[]
+  >([])
   const [timeSlotsUsed, setTimeSlotsUsed] = useState<number[]>([])
   const [activities, setActivities] = useState<ActivityDto[]>([])
   const [selectedDate, setSelectedDate] = useState<string>('')
 
-  const { register, handleSubmit, formState: { errors } } = useForm<ReservationDto>()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ReservationDto>()
 
   useEffect(() => {
     getActivities().then((data) => setActivities(data))
-    
   }, [])
 
   const onSubmit = (data: ReservationDto) => {
-    console.log('data - ', data)
     const reservation: ReservationDto = {
       ...data,
       reservedActivities: reservedActivities,
@@ -40,7 +44,12 @@ export default function ReservationForm() {
     }
 
     createReservation(reservation).then((res) => console.log('response-', res))
-    console.log('resevation- ', reservation)
+    console.log('reservation - ', reservation)
+  }
+
+  const formatTime = (time: number): string => {
+    const formattedTime = time.toString().padStart(4, '0') // Ensure 4-digit format
+    return `${formattedTime.toString().slice(0, 2)}:${formattedTime.toString().slice(2)}`
   }
 
   const getTodayDate = () => {
@@ -51,8 +60,13 @@ export default function ReservationForm() {
     return `${year}-${month}-${day}`
   }
 
-  const handleActivityReservation = (reservationActivity: ReservationActivityDto) => {
-    setReservedActivities((currentActivities) => [...currentActivities, reservationActivity])
+  const handleActivityReservation = (
+    reservationActivity: ReservationActivityDto,
+  ) => {
+    setReservedActivities((currentActivities) => [
+      ...currentActivities,
+      reservationActivity,
+    ])
   }
 
   useEffect(() => {
@@ -62,8 +76,10 @@ export default function ReservationForm() {
   const getTimeSlotsUsed = () => {
     const newTimeSlotsUsed: number[] = []
     for (const activity of reservedActivities) {
-      const endTime = activity.startTime + activity.activity.timeSlot * activity.reservedSlots
+      const endTime =
+        activity.startTime + activity.activity.timeSlot * activity.reservedSlots
       for (let i = activity.startTime; i < endTime; i += 100) {
+        // i += 100 to simulate 1 hour time slots
         newTimeSlotsUsed.push(i)
       }
     }
@@ -72,23 +88,28 @@ export default function ReservationForm() {
 
   return (
     <div className="mt-32 justify-center">
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {reservedActivities.map((activity, index) => (
-          <div key={index} className="card w-96 bg-base-100 shadow-xl mx-auto justify-center">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {reservedActivities.map((activity, index) => (
+            <div
+              key={index}
+              className="card w-96 bg-base-100 shadow-xl mx-auto justify-center"
+            >
               <div className="card-body">
-              <h2 className="card-title">{activity.activity.name}</h2>
-              <p>Starttid: kl {activity.startTime}</p>
-              <p>Antal: {activity.reservedSlots}</p>
-              <p>Varighed: {(activity.reservedSlots * activity.activity.timeSlot) / 100} timer</p>
-            
-              <div className="card-actions justify-end">
-             
+                <h2 className="card-title">{activity.activity.name}</h2>
+                <p>Starttid: kl {activity.startTime}</p>
+                <p>Antal: {activity.reservedSlots}</p>
+                <p>
+                  Varighed:{' '}
+                  {(activity.reservedSlots * activity.activity.timeSlot) / 100}{' '}
+                  timer
+                </p>
+
+                <div className="card-actions justify-end"></div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
         {/* radio buttons for customer type */}
         <div className="flex justify-center items-center">
@@ -438,6 +459,7 @@ export default function ReservationForm() {
               {activities.map((activity) => (
                 <ActivityCard
                   onReserveActivity={handleActivityReservation}
+                  formatTime={formatTime}
                   timeSlotsUsed={timeSlotsUsed}
                   key={activity.id}
                   activity={activity}

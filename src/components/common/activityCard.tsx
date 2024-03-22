@@ -6,6 +6,7 @@ interface ActivityCardProps {
   activity: ActivityDto
   date: string
   timeSlotsUsed: number[]
+  formatTime: (time: number) => string
   onReserveActivity: (reservationActivity: ReservationActivityDto) => void
 }
 
@@ -13,6 +14,7 @@ export default function ActivityCard({
   activity,
   date,
   timeSlotsUsed,
+  formatTime,
   onReserveActivity,
 }: ActivityCardProps) {
   // activity card image
@@ -39,11 +41,6 @@ export default function ActivityCard({
       reservedSlots: reservedSlots,
     }
     onReserveActivity(reservationActivity) // Call parent's callback with reservationActivity
-  }
-
-  const formatTime = (time: number): string => {
-    const formattedTime = time.toString().padStart(4, '0') // Ensure 4-digit format
-    return `${formattedTime.toString().slice(0, 2)}:${formattedTime.toString().slice(2)}`
   }
 
   return (
