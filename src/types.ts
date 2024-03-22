@@ -1,18 +1,15 @@
 export type ReservationDto = {
-  id?: number | null // Optional for new reservations
-  guest?: GuestDto | null
-  company?: CompanyDto | null
-  reservationDate: string // Date string in ISO format
-  reservationTime: number
+  id: number | null // Optional for new reservations
+  guest: GuestDto | null
+  company: CompanyDto | null
+  reservationDate: Date
   numberOfParticipants: number
-  created: string // Date string in ISO format
-  edited?: string | null // Optional for existing reservations
   reservedActivities: ReservationActivityDto[]
   isCancelled: boolean
 }
 
 export type GuestDto = {
-  id?: number
+  id: number | null // Optional for new guests
   firstName: string
   lastName: string
   phoneNumber?: string // Optional phone number
@@ -20,20 +17,19 @@ export type GuestDto = {
 }
 
 export type CompanyDto = {
-  id?: number
+  id: number | null // Optional for new companies
   companyName: string
   contactFirstName: string
   contactLastName: string
   contactEmail: string
-  cvr?: number // Optional CVR number
+  cvr: number // Optional CVR number
 }
 
 export type ReservationActivityDto = {
-  reservationId?: number // Optional reference to Reservation
+  reservation: ReservationDto | null // Optional for new activities
   activity: ActivityDto // Reference to Activity (assuming separate ActivityDto)
   startTime: number
   reservedSlots: number
-  created: string // Date string in ISO format
 }
 
 export type ActivityDto = {
