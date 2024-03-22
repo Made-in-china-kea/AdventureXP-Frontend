@@ -22,7 +22,7 @@ export default function ReservationForm() {
 
   useEffect(() => {
     getActivities().then((data) => setActivities(data))
-    setSelectedDate(getTodayDate())
+    
   }, [])
 
   const onSubmit = (data: ReservationDto) => {
@@ -71,20 +71,24 @@ export default function ReservationForm() {
   }
 
   return (
-    <div className="mt-32">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {reservedActivities.map((activity) => (
-          <div key={activity.activity.id} className="flex justify-center items-center mt-4">
-            <div>
-              <p>Aktivitet: {activity.activity.name}</p>
-              <p> Starttid: kl {activity.startTime}</p>
-              <p> Antal: {activity.reservedSlots}</p>
-              <p>
-                Varighed: {(activity.reservedSlots * activity.activity.timeSlot) / 100} timer
-              </p>
+    <div className="mt-32 justify-center">
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {reservedActivities.map((activity, index) => (
+          <div key={index} className="card w-96 bg-base-100 shadow-xl mx-auto justify-center">
+              <div className="card-body">
+              <h2 className="card-title">{activity.activity.name}</h2>
+              <p>Starttid: kl {activity.startTime}</p>
+              <p>Antal: {activity.reservedSlots}</p>
+              <p>Varighed: {(activity.reservedSlots * activity.activity.timeSlot) / 100} timer</p>
+            
+              <div className="card-actions justify-end">
+             
+              </div>
             </div>
           </div>
         ))}
+      </div>
 
         {/* radio buttons for customer type */}
         <div className="flex justify-center items-center">
