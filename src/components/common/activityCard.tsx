@@ -38,8 +38,6 @@ export default function ActivityCard({
       startTime: startTime,
       reservedSlots: reservedSlots,
     }
-    console.log(reservationActivity)
-
     onReserveActivity(reservationActivity) // Call parent's callback with reservationActivity
   }
 

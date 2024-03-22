@@ -2,7 +2,7 @@ export type ReservationDto = {
   id: number | null // Optional for new reservations
   guest: GuestDto | null
   company: CompanyDto | null
-  reservationDate: Date
+  reservationDate: string
   numberOfParticipants: number
   reservedActivities: ReservationActivityDto[]
   isCancelled: boolean

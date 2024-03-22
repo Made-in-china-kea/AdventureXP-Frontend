@@ -39,7 +39,7 @@ export default function ReservationForm() {
       ...data,
       reservedActivities: reservedActivities,
       // convert the selected date to a date object
-      reservationDate: new Date(selectedDate),
+      reservationDate: selectedDate,
     }
     // set guest or company to null
     if (customerType === 'private') {
