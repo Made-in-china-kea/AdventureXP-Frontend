@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { Button } from './components/Button.tsx'
+import { Button } from './components/common/Button.tsx'
 import { NavLink } from 'react-router-dom' // Use this if you prefer NavLink
-import './assets/styles/Navbar.css'
+import './Styles/Navbar.css'
 import AuthStatus from './security/AuthStatus'
 
 function Navbar() {

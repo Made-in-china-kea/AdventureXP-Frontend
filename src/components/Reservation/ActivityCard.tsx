@@ -18,7 +18,7 @@ export default function ActivityCard({
   onReserveActivity,
 }: ActivityCardProps) {
   // activity card image
-  const image = `src/assets/Images/activities/${activity.name}.jpg`
+  const image = `/Images/activities/${activity.name}.jpg`
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [availableSlots, setAvailableSlots] = useState<number[]>([])
   const [reservedSlots, setReservedSlots] = useState<number>(1)

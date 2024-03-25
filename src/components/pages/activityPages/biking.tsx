@@ -1,5 +1,5 @@
-import backgroundImage from '../../../assets/Images/backgrounds/bikingbackground.png'
-import { Button } from '../../Button.tsx'
+import backgroundImage from '/Images/backgrounds/bikingbackground.png'
+import { Button } from '../../common/Button.tsx'
 
 const Biking = () => {
   return (

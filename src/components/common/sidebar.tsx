@@ -1,4 +1,4 @@
-import './assets/styles/Sidebar.css'
+import '../../Styles/sidebar.css'
 
 interface SidebarProps {
   isOpen: boolean

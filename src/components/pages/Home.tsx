@@ -1,5 +1,5 @@
-import Cards from '../Cards'
-import HeroSection from '../HeroSection'
+import Cards from '../common/Cards'
+import HeroSection from '../common/HeroSection'
 
 function Home() {
   return (
