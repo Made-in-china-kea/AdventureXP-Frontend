@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   ActivityDto,
@@ -48,10 +48,10 @@ export default function ReservationForm() {
   }
 
   const formatTimeRange = (startTime: number, duration: number): string => {
-    const start = formatTime(startTime);
-    const end = formatTime(startTime + duration);
-    return `${start}-${end}`;
-  };
+    const start = formatTime(startTime)
+    const end = formatTime(startTime + duration)
+    return `${start}-${end}`
+  }
 
   const formatTime = (time: number): string => {
     const formattedTime = time.toString().padStart(4, '0') // Ensure 4-digit format
@@ -75,29 +75,29 @@ export default function ReservationForm() {
     ])
   }
 
-  useEffect(() => {
-    setTimeSlotsUsed(getTimeSlotsUsed())
-  }, [reservedActivities])
-
-  const getTimeSlotsUsed = () => {
+  const getTimeSlotsUsed = useCallback(() => {
     const newTimeSlotsUsed: number[] = []
     for (const activity of reservedActivities) {
       const endTime =
         activity.startTime + activity.activity.timeSlot * activity.reservedSlots
       for (let i = activity.startTime; i < endTime; i += 100) {
-        // i += 100 to simulate 1 hour time slots
         newTimeSlotsUsed.push(i)
       }
     }
     return newTimeSlotsUsed
-  }
+  }, [reservedActivities]) // Dependency on reservedActivities
+
+  useEffect(() => {
+    const newTimeSlotsUsed = getTimeSlotsUsed()
+    setTimeSlotsUsed(newTimeSlotsUsed)
+  }, [getTimeSlotsUsed]) // Reruns only when getTimeSlotsUsed changes
 
   // Function to delete an activity by its index
   const deleteActivity = (index: number) => {
     setReservedActivities((currentActivities) =>
-      currentActivities.filter((_, i) => i !== index)
-    );
-  };
+      currentActivities.filter((_, i) => i !== index),
+    )
+  }
 
   return (
     <div className="mt-32 justify-center">
@@ -110,9 +110,15 @@ export default function ReservationForm() {
             >
               <div className="card-body">
                 <h2 className="card-title">{activity.activity.name}</h2>
-                <p>Starttid: {formatTimeRange(activity.startTime, activity.activity.timeSlot * activity.reservedSlots)}</p>
-              <p>Antal: {activity.reservedSlots}</p>
-              
+                <p>
+                  Starttid:{' '}
+                  {formatTimeRange(
+                    activity.startTime,
+                    activity.activity.timeSlot * activity.reservedSlots,
+                  )}
+                </p>
+                <p>Antal: {activity.reservedSlots}</p>
+
                 <p>
                   Varighed:{' '}
                   {(activity.reservedSlots * activity.activity.timeSlot) / 100}{' '}
@@ -120,13 +126,13 @@ export default function ReservationForm() {
                 </p>
 
                 <div className="card-actions justify-center">
-                <button
-                  onClick={() => deleteActivity(index)}
-                  className="btn btn-error"
-                >
-                  Delete
-                </button>
-              </div>
+                  <button
+                    onClick={() => deleteActivity(index)}
+                    className="btn btn-error"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           ))}
