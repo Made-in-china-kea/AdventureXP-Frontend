@@ -4,12 +4,13 @@ import {
   ActivityDto,
   ReservationActivityDto,
   ReservationDto,
-} from '../../types'
+} from '../../types.ts'
 import {
   createReservation,
   getActivities,
-} from '../../services/api/reservationAPI'
-import ActivityCard from './activityCard.tsx'
+} from '../../services/api/reservationAPI.tsx'
+import ActivityCard from './ActivityCard.tsx'
+import ActivityTimelineCard from './ActivityTimeline.tsx'
 
 export default function ReservationForm() {
   const [customerType, setCustomerType] = useState('private')
@@ -45,12 +46,6 @@ export default function ReservationForm() {
 
     createReservation(reservation).then((res) => console.log('response-', res))
     console.log('reservation - ', reservation)
-  }
-
-  const formatTimeRange = (startTime: number, duration: number): string => {
-    const start = formatTime(startTime)
-    const end = formatTime(startTime + duration)
-    return `${start}-${end}`
   }
 
   const formatTime = (time: number): string => {
@@ -104,37 +99,13 @@ export default function ReservationForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {reservedActivities.map((activity, index) => (
-            <div
+            <ActivityTimelineCard
               key={index}
-              className="card w-96 bg-base-100 shadow-xl mx-auto justify-center"
-            >
-              <div className="card-body">
-                <h2 className="card-title">{activity.activity.name}</h2>
-                <p>
-                  Starttid:{' '}
-                  {formatTimeRange(
-                    activity.startTime,
-                    activity.activity.timeSlot * activity.reservedSlots,
-                  )}
-                </p>
-                <p>Antal: {activity.reservedSlots}</p>
-
-                <p>
-                  Varighed:{' '}
-                  {(activity.reservedSlots * activity.activity.timeSlot) / 100}{' '}
-                  timer
-                </p>
-
-                <div className="card-actions justify-center">
-                  <button
-                    onClick={() => deleteActivity(index)}
-                    className="btn btn-error"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
+              activity={activity}
+              index={index}
+              deleteActivity={deleteActivity}
+              formatTime={formatTime}
+            />
           ))}
         </div>
 

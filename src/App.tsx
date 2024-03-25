@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom' // Corrected imports
 import './App.css'
 import Login from './security/Login'
 import Logout from './security/Logout'
-import ReservationForm from './components/common/reservationForm'
+import ReservationForm from './components/common/ReservationForm.tsx'
 import Layout from './Layout'
 
 import Home from './components/pages/Home'

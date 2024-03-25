@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ActivityDto, ReservationActivityDto } from '../../types'
+import { ActivityDto, ReservationActivityDto } from '../../types.ts'
 import { getAvailableSlots } from '../../services/api/reservationAPI.tsx'
 
 interface ActivityCardProps {
@@ -98,7 +98,7 @@ export default function ActivityCard({
         <dialog className="modal modal-open">
           <div className="modal-box">
             <p>
-              Hvor mange pladser af{' '}
+              Hvor mange tider af{' '}
               {activity.timeSlot / 100 <= 1
                 ? `${activity.timeSlot / 100} times`
                 : `${activity.timeSlot / 100} timers`}{' '}
