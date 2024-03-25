@@ -1,30 +1,22 @@
-# React + TypeScript + Vite
+# AdventureXP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project consists of two repositories for the frontend and backend development of AdventureXP.
 
-Currently, two official plugins are available:
+## Frontend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The frontend code is located in the following GitHub repository:
 
-## Expanding the ESLint configuration
+- **Link:** https://github.com/explore?imz_s=508e1qe9umab7t5kdsphs4g2r0
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Backend
 
-- Configure the top-level `parserOptions` property like this:
+The backend code is located in the following GitHub repository:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- **Link:** https://github.com/AlibabaResearch/AdvancedLiterateMachinery
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Deployed Applications
+
+- **Frontend Deployment:** https://gentle-plant-09f29bc03.5.azurestaticapps.net
+- **Backend Deployment:** http://adventurexpbackend.azurewebsites.net
+
+**Note:** These deployment URLs might change in the future. Please refer to the respective frontend and backend repositories for the latest deployment information.
