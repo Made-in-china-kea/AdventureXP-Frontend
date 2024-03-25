@@ -1,4 +1,4 @@
- @import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
 
 video {
   object-fit: cover;
@@ -24,14 +24,14 @@ video {
   color: #fff;
   font-size: 100px;
   margin-top: -100px;
-  font-family: "Rubik Dirt" ;
+  font-family: 'Rubik Dirt';
 }
 
 .hero-container > p {
   margin-top: 8px;
   color: #fff;
   font-size: 32px;
-  font-family: "Rubik Dirt" ;
+  font-family: 'Rubik Dirt';
 }
 
 .hero-btns {

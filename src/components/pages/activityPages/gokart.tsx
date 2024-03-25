@@ -18,8 +18,8 @@ const Gokart = () => {
           >
             <div>
               <p className="text-white text-left text-shadow bg-black bg-opacity-40 p-3 rounded-md h-full">
-                Den ultimative go-kart oplevelse, hvor adrenalinet
-                møder præcision i hvert sving. Vores topmoderne go-kart bane er
+                Den ultimative go-kart oplevelse, hvor adrenalinet møder
+                præcision i hvert sving. Vores topmoderne go-kart bane er
                 designet til at udfordre og begejstre racere på alle niveauer,
                 fra førstegangskørere til erfarne professionelle. Mærk suset,
                 når du suser gennem hårnålesving, speeder ned ad langsiderne, og

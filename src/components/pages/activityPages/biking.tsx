@@ -10,7 +10,7 @@ const Biking = () => {
       <div className="hero-overlay bg-opacity-60"></div>
       <div className="hero-content text-center text-neutral-content">
         <div className="max-w-full">
-          <h1 className='text-white'>AdventureXP</h1>
+          <h1 className="text-white">AdventureXP</h1>
           <h1 className="mb-5 text-5xl font-bold text-white">Biking</h1>
           <div
             className="grid grid-cols-4 gap-4 my-10 mx-5 "

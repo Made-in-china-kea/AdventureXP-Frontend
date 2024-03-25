@@ -18,11 +18,11 @@ const Minigolf = () => {
           >
             <div>
               <p className="text-white text-left text-shadow bg-black bg-opacity-40 p-3 rounded-md h-full">
-                Vores fortryllende mini golf bane, hvor eventyr
-                venter ved hvert hul! Vores bane er designet til at levere sjov
-                og udfordringer for alle aldre, hvilket gør det til det perfekte
-                udflugtsmål for familier, venner og par, der søger en hyggelig
-                og konkurrencepræget aktivitet.
+                Vores fortryllende mini golf bane, hvor eventyr venter ved hvert
+                hul! Vores bane er designet til at levere sjov og udfordringer
+                for alle aldre, hvilket gør det til det perfekte udflugtsmål for
+                familier, venner og par, der søger en hyggelig og
+                konkurrencepræget aktivitet.
               </p>
             </div>
             <div>
@@ -47,10 +47,10 @@ const Minigolf = () => {
             <div>
               <p className="text-white text-left text-shadow bg-black bg-opacity-40 p-3 rounded-md h-full">
                 Er du klar til at tage udfordringen op og bevise dine mini golf
-                færdigheder? <br></br> Besøg os for en dag fuld af sjov, latter og magiske
-                øjeblikke. Perfekt til fødselsdage, familieudflugter eller en
-                afslappende dag i det fri – vores mini golf bane er stedet, hvor
-                magi og eventyr mødes.{' '}
+                færdigheder? <br></br> Besøg os for en dag fuld af sjov, latter
+                og magiske øjeblikke. Perfekt til fødselsdage, familieudflugter
+                eller en afslappende dag i det fri – vores mini golf bane er
+                stedet, hvor magi og eventyr mødes.{' '}
               </p>
             </div>
           </div>
